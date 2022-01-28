@@ -16,11 +16,12 @@ app.use(express.urlencoded({ extended: true }));
 const db = require("./app/models");
 const Role = db.role;
 
- //const mqtt = require("./app/mqtt");
+ const apiWeahter = require("./app/api_weather");
 
-
+console.log(apiWeahter);
 
 db.sequelize.sync();
+l
 // drop the table if it already exists
 // db.sequelize.sync({ force: true }).then(() => {
 //   console.log("Drop and re-sync db.");
