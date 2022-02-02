@@ -12,21 +12,20 @@ const client = mqtt.connect(connectUrl, {
   clientId,
   clean: true,
   connectTimeout: 4000,
-  username: process.env.MQTT_USERNAME || 'emqx',
   password: process.env.MQTT_USERPASS || 'public',
-  reconnectPeriod: 1000,
+  reconnectPeriod: 1000,  
 })
 
 require('./service')(client)
 
 
-function intervalFunc() {
-  devices.findAll()
-    .then(data => {
-      data.forEach(element => {
-        client.publish(element.dataValues.name, JSON.stringify(element.dataValues))
-      });
-    })
+// function intervalFunc() {
+//   devices.findAll()
+//     .then(data => {
+//       data.forEach(element => {
+//         client.publish(element.dataValues.name, JSON.stringify(element.dataValues))
+//       });
+//     })
 
-}
-setInterval(intervalFunc, 10000); 
+// }  
+// setInterval(intervalFunc, 10000); 

@@ -20,8 +20,7 @@ const Role = db.role;
 
 console.log(apiWeahter);
 
-db.sequelize.sync();
-l
+db.sequelize.sync(); 
 // drop the table if it already exists
 // db.sequelize.sync({ force: true }).then(() => {
 //   console.log("Drop and re-sync db.");

@@ -2,7 +2,7 @@ const { devices } = require("../models")
 
 
 module.exports = client => {
-    const topic = '/nodejs/mqtt'
+    const topic = '/topic222'
     var a = 0
     client.on('connect', () => {
         console.log('Connected')

@@ -91,7 +91,7 @@ exports.findCities = (req, res) => {
   User.findOne( {where: { username: req.body.username }})
     .then(data => {
       data.getCities({ attributes: ['name']}).then(cities => {
-        res.send(cities);
+        res.send(cities); 
       })
     })
     .catch(err => {
