@@ -3,7 +3,7 @@ module.exports = (sequelize, Sequelize) => {
     name: {
       type: Sequelize.STRING,
       allowNull: false,
-      unique: { args: true, msg: 'Email address already in use!' }
+      unique: { args: true, msg: 'Shahar nomi oldin ishlatilgan' }
     },
     longitude: {
       type: Sequelize.DOUBLE,
@@ -21,6 +21,7 @@ module.exports = (sequelize, Sequelize) => {
       type: Sequelize.DATE,
       defaultValue: Sequelize.NOW
     },
+    
     ontime: {
       type: Sequelize.DATE,
       defaultValue: Sequelize.NOW
@@ -29,6 +30,7 @@ module.exports = (sequelize, Sequelize) => {
       type: Sequelize.DATE,
       defaultValue: Sequelize.NOW
     },
+    
     ontime1: {
       type: Sequelize.DATE,
       defaultValue: Sequelize.NOW
