@@ -99,14 +99,16 @@ exports.findOneWithCity = (req, res) => {
 // Update a Device by the id in the request
 exports.update = (req, res) => {
   const id = req.params.id;
+  var dev;
+  Device.findByPk(id)
+  .then(data => {dev = data });
+
   Device.update(req.body, {
     where: { id: id }
   })
     .then(num => {
       if (num == 1) {
-        res.send({
-          message: "Devie was updated successfully."
-        });
+        res.send(dev);
       } else {
         res.send({
           message: `Cannot update Device with id=${id}. Maybe Device was not found or req.body is empty!`

@@ -36,10 +36,10 @@ setInterval(async function () {
               City.update(city.dataValues, { where: { id: city.id } }).then(data => {
                 if (data == 1) {
                   console.log([city.name, city.visiblity]);
-                  console.log([city.name, "Sunrise and sunset Updated Successfuly"]);
+                  console.log([city.name, "Sunrise and sunset  O`rntaildi"]);
                 }
                 else
-                  console.log([city.name, "Sunrise and sunset Updating FAIL"]);
+                  console.log([city.name, "Sunrise and sunset Updating XATOLIK"]);
 
               });
 
@@ -53,4 +53,4 @@ setInterval(async function () {
       });
     });
 
-}, process.env.W_API_UPDATING_TIME || 50000);
+}, process.env.W_API_UPDATING_TIME || 80000);
