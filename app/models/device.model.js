@@ -134,3 +134,5 @@ module.exports = (sequelize, Sequelize) => {
   });
   return Device;
 };
+
+//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

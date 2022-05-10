@@ -108,6 +108,7 @@ exports.update = (req, res) => {
   })
     .then(num => {
       if (num == 1) {
+        
         res.send(dev);
       } else {
         res.send({
