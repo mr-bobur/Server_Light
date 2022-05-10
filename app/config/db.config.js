@@ -1,5 +1,5 @@
 module.exports = {
-  HOST: "http://185.196.214.199:3306",
+  HOST: "localhost",
   USER: "root",
   PASSWORD: "acdb2021",
 
