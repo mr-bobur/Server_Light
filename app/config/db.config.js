@@ -1,7 +1,7 @@
 module.exports = {
   HOST: "http://185.196.214.199:3306",
   USER: "root",
-  PASSWORD: "acdb2022",
+  PASSWORD: "acdb2021",
 
   DB: "testdb",
   dialect: "mysql",
