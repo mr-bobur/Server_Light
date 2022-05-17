@@ -1,11 +1,6 @@
 const db = require("../models");
 const Device = db.devices;
 
-
-const mqtt = require("../mqtt");
-
-
-
 // Create and Save a new Tutorial
 exports.create = (req, res) => {
 
@@ -42,7 +37,7 @@ exports.findAll = (req, res) => {
 };
 
 exports.findAllCities = (req, res) => {
-  Device.findAll({ include: ["city"]})
+  Device.findAll({ include: ["city"] })
     .then(data => {
       res.send(data);
     })
@@ -101,14 +96,14 @@ exports.update = (req, res) => {
   const id = req.params.id;
   var dev;
   Device.findByPk(id)
-  .then(data => {dev = data });
+    .then(data => { dev = data });
 
   Device.update(req.body, {
     where: { id: id }
   })
     .then(num => {
       if (num == 1) {
-        
+
         res.send(dev);
       } else {
         res.send({
@@ -122,6 +117,41 @@ exports.update = (req, res) => {
       });
     });
 };
+
+// Update a Device by the id in the request
+
+var crypto = require('crypto')
+
+exports.updateFormDevice = (req, res) => {
+  const id = req.params.id;
+  Device.update(req.body, {
+    where: { id: id }
+  })
+    .then(num => {
+      if (num == 1) {
+        Device.findByPk(id)
+          .then(device => {
+            if (req.headers.accesstoken == crypto.createHash("sha1").update(device.uid).digest("hex")) {
+              res.send(device);
+            } else {
+              res.status(401).send({
+                message: "Unauthorized request"
+              }); 
+            } 
+          }); 
+      } else {
+        res.send({
+          message: `Cannot update Device with id=${id}. Maybe Device was not found or req.body is empty!`
+        });
+      }
+    })
+    .catch(err => {
+      res.status(500).send({
+        message: "Error updating Devie with id=" + id
+      });
+    });
+};
+
 
 // Delete a Device with the specified id in the request
 exports.delete = (req, res) => {

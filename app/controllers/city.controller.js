@@ -50,7 +50,7 @@ exports.findAll = (req, res) => {
 // Find a single City with an id
 exports.findOne = (req, res) => {
   const id = req.params.id;
-  var sdf= 0;
+  var sdf = 0;
   City.findByPk(id,)
     .then(data => {
       if (data) {
@@ -71,8 +71,8 @@ exports.findOne = (req, res) => {
 // Find a single City with an id
 exports.findOneWithDevice = (req, res) => {
   const id = req.params.id;
-  var sdf= 0;
-  City.findByPk(id,{ include: ["devices"] } )
+  var sdf = 0;
+  City.findByPk(id, { include: ["devices"] })
     .then(data => {
       if (data) {
         res.send(data.devices);
@@ -88,38 +88,47 @@ exports.findOneWithDevice = (req, res) => {
       });
     });
 };
-exports.addUser = (req, res) => {  
-  City.findByPk(req.body.user) //.setCities(req.body.user)
-  .then(user1 => {
-    user1.addUsers(req.body.city);
-    res.send({msg : "accepted" });
-  })
-  .catch(err => {
-    res.status(500).send({
-      message: "Error updating City with id=" + id
+exports.addUser = (req, res) => {
+  City.findByPk(req.body.cityId) //.setCities(req.body.user)
+    .then(
+      city1 => {
+        if (req.body.userId) {
+          Users.findByPk(req.body.userId) //.setCities(req.body.user)
+            .then(
+              user1 => { 
+                console.log(city1);
+                console.log(user1);
+                city1.addUsers(user1); 
+                res.send(city1);
+              }); 
+        } 
+      })
+    .catch(err => {
+      res.status(500).send({
+        message: "Error updating City with id=" + id
+      });
     });
-  });
 };
 
 
 
-exports.deleteUser = (req, res) => {  
+exports.deleteUser = (req, res) => {
   City.findByPk(req.body.city) //.setCities(req.body.user)
-  .then(user1 => {
-    user1.deleteUsers(req.body.user);
-    res.send({msg : "accepted" });
-  })
-  .catch(err => {
-    res.status(500).send({
-      message: "Error updating City with id=" + id
+    .then(user1 => {
+      user1.deleteUsers(req.body.user);
+      res.send({ msg: "accepted" });
+    })
+    .catch(err => {
+      res.status(500).send({
+        message: "Error updating City with id=" + id
+      });
     });
-  });
 };
 
 
 
 exports.findUsers = (req, res) => {
-  const id = req.params.id; 
+  const id = req.params.id;
   City.findByPk(id)
     .then(data => {
       data.getUsers().then(users => {

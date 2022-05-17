@@ -64,7 +64,7 @@ exports.signin = (req, res) => {
             }
 
             var token = jwt.sign({ id: user.id }, config.secret, {
-                expiresIn: 24 // 24 hours
+                expiresIn: 60000 // 24 hours
             });
 
             var authorities = [];

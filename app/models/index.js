@@ -52,14 +52,14 @@ db.ROLES = ["user", "admin", "moderator"];
 
 db.cities.belongsToMany(db.user, {
   through: "user_city",
-  foreignKey: "userId",
-  otherKey: "cityId"
+  foreignKey: "cityId",
+  otherKey: "userId"
 });
 
 db.user.belongsToMany(db.cities, {
   through: "user_city",
-  foreignKey: "cityId",
-  otherKey: "userId"
+  foreignKey: "userId",
+  otherKey: "cityId"
 });
 
 

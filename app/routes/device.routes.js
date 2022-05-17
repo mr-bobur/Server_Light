@@ -7,6 +7,7 @@ module.exports = app => {
   router.get("/:id", deivices.findOne);
   router.get("/:id/city", deivices.findOneWithCity);
   router.put("/:id", deivices.update);
+  router.put("/:id/bytoken", deivices.updateFormDevice);
   router.delete("/:id", deivices.delete); 
   app.use('/api/devices', router);
 };
