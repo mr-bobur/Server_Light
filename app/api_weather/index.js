@@ -9,8 +9,7 @@ setInterval(async function () {
     .then(data => {
       const cities = data;
 
-      cities.forEach(city => {
-
+      cities.forEach(city => { 
         try {
           // request boshlanish joyi
           var request = require("request");
@@ -29,14 +28,14 @@ setInterval(async function () {
             try {
               var body1 = JSON.parse(body);
               var sun = body1.sys;
-              //console.log(body1);
+              console.log(body1.sys);
               city.sunset = new Date((sun.sunset + body1.timezone) * 1000);
               city.sunrise = new Date((sun.sunrise + body1.timezone) * 1000);
               city.visiblity = body1.visibility;
               City.update(city.dataValues, { where: { id: city.id } }).then(data => {
                 if (data == 1) {
-                  console.log([city.name, city.visiblity]);
-                  console.log([city.name, "Sunrise and sunset  O`rntaildi"]);
+                  // console.log([city.name, city.visiblity]);
+                  // console.log([city.name, "Sunrise and sunset  O`rntaildi"]);
                 }
                 else
                   console.log([city.name, "Sunrise and sunset Updating XATOLIK"]);
@@ -53,4 +52,4 @@ setInterval(async function () {
       });
     });
 
-}, process.env.W_API_UPDATING_TIME || 80000);
+}, process.env.W_API_UPDATING_TIME || 1600000);
