@@ -20,7 +20,7 @@ exports.create = (req, res) => {
     latitude: req.body.latitude
   };
 
-  // Save Tutorial in the database
+  // Save city in the database
   City.create(city)
     .then(data => {
       res.send(data);
@@ -33,7 +33,7 @@ exports.create = (req, res) => {
     });
 };
 
-// Retrieve all Tutorials from the database.
+// Retrieve all city from the database.
 exports.findAll = (req, res) => {
   City.findAll()
     .then(data => {
@@ -88,10 +88,38 @@ exports.findOneWithDevice = (req, res) => {
       });
     });
 };
+exports.addUser = (req, res) => {  
+  City.findByPk(req.body.user) //.setCities(req.body.user)
+  .then(user1 => {
+    user1.addUsers(req.body.city);
+    res.send({msg : "accepted" });
+  })
+  .catch(err => {
+    res.status(500).send({
+      message: "Error updating City with id=" + id
+    });
+  });
+};
+
+
+
+exports.deleteUser = (req, res) => {  
+  City.findByPk(req.body.city) //.setCities(req.body.user)
+  .then(user1 => {
+    user1.deleteUsers(req.body.user);
+    res.send({msg : "accepted" });
+  })
+  .catch(err => {
+    res.status(500).send({
+      message: "Error updating City with id=" + id
+    });
+  });
+};
+
+
 
 exports.findUsers = (req, res) => {
-  const id = req.params.id;
-  var sdf= 0;
+  const id = req.params.id; 
   City.findByPk(id)
     .then(data => {
       data.getUsers().then(users => {

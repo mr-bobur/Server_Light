@@ -28,10 +28,10 @@ db.sequelize.sync();
 // });
 
 app.get("/", (req, res) => {
-  res.json({ message: "City lightning APi service" });
+  res.json({ message: "City lightning API service working" });
 });
 
-require("./app/routes/turorial.routes")(app);
+// require("./app/routes/turorial.routes")(app);
 require("./app/routes/city.routes")(app);
 require("./app/routes/device.routes")(app);
 
