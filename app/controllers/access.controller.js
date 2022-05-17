@@ -4,8 +4,7 @@ const User = db.user;
 const Op = db.Sequelize.Op;
 
 
-exports.addUser = (req, res) => {
-
+exports.addUser = (req, res) => { 
   const id = req.body.user;
   //var user = User.findByPk(id)
   User.findByPk(req.body.user) //.setCities(req.body.user)
