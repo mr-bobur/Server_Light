@@ -2,7 +2,7 @@ module.exports = app => {
   const deivices = require("../controllers/device.controller");
   const { authJwt } = require("../middlware");
   var router = require("express").Router();
-  router.post("/", [authJwt.verifyToken, authJwt.isAdmin], deivices.create);
+  router.post("/", [authJwt.verifyToken], deivices.create);
   router.get("/", [authJwt.verifyToken], deivices.findAll);
   router.get("/:id", [authJwt.verifyToken], deivices.findOne);
   router.get("/:id/city", [authJwt.verifyToken], deivices.findOneWithCity);
