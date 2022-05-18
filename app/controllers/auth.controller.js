@@ -11,30 +11,30 @@ var bcrypt = require("bcryptjs");
 exports.signup = (req, res) => {
     // Save User to Database
     User.create({
-            username: req.body.username,
-            email: req.body.email,
-            password: bcrypt.hashSync(req.body.password, 8)
-        }).then(user => {
-            if (req.body.roles) {
-                Role.findAll({
-                    where: {
-                        name: {
-                            [Op.or]: req.body.roles
-                        }
+        username: req.body.username,
+        email: req.body.email,
+        password: bcrypt.hashSync(req.body.password, 8)
+    }).then(user => {
+        if (req.body.roles) {
+            Role.findAll({
+                where: {
+                    name: {
+                        [Op.or]: req.body.roles
                     }
-                }).then(roles => {
-                    user.setRoles(roles)
-                        .then(() => {
-                            res.send({ message: "User was registered successfully!" });
-                        });
-                });
-            } else {
-                // user role = 1
-                user.setRoles([1]).then(() => {
-                    res.send({ message: "User was registered successfully!" });
-                });
-            }
-        })
+                }
+            }).then(roles => {
+                user.setRoles(roles)
+                    .then(() => {
+                        res.send({ message: "User was registered successfully!" });
+                    });
+            });
+        } else {
+            // user role = 1
+            user.setRoles([1]).then(() => {
+                res.send({ message: "User was registered successfully!" });
+            });
+        }
+    })
         .catch(err => {
             res.status(500).send({ message: err.message });
         });
@@ -42,10 +42,10 @@ exports.signup = (req, res) => {
 
 exports.signin = (req, res) => {
     User.findOne({
-            where: {
-                username: req.body.username
-            }
-        })
+        where: {
+            username: req.body.username
+        }
+    })
         .then(user => {
             if (!user) {
                 return res.status(404).send({ message: "User Not found." });
@@ -99,3 +99,127 @@ exports.findCities = (req, res) => {
             });
         });
 };
+
+
+// CRUD
+
+exports.findAll = (req, res) => {
+    User.findAll()
+        .then(data => {
+            res.send(data);
+        })
+        .catch(err => {
+            res.status(500).send({
+                message:
+                    err.message || "Some error occurred while retrieving Users."
+            });
+        });
+};
+
+// Find a single City with an id
+exports.findOne = (req, res) => {
+    const id = req.params.id;
+    User.findByPk(id,)
+        .then(data => {
+            if (data) {
+                res.send(data);
+            } else {
+                res.status(404).send({
+                    message: `Cannot find User with id=${id}.`
+                });
+            }
+        })
+        .catch(() => {
+            res.status(500).send({
+                message: "Error retrieving User with id=" + id
+            });
+        });
+};
+
+
+// Update a Tutorial by the id in the request
+exports.update = (req, res) => {
+    const id = req.params.id;
+
+    User.update(req.body, {
+        where: { id: id }
+    })
+        .then(num => {
+            if (num == 1) {
+                res.send({
+                    message: "Users was updated successfully."
+                });
+            } else {
+                res.send({
+                    message: `Cannot update users with id=${id}`
+                });
+            }
+        })
+        .catch(() => {
+            res.status(500).send({
+                message: "Error updating Users with id=" + id
+            });
+        });
+};
+
+// Delete a Tutorial with the specified id in the request
+exports.delete = (req, res) => {
+    const id = req.params.id;
+
+    User.destroy({
+        where: { id: id }
+    })
+        .then(num => {
+            if (num == 1) {
+                res.send({
+                    message: "User was deleted successfully!"
+                });
+            } else {
+                res.send({
+                    message: `Cannot delete Tutorial with id=${id}. Maybe User was not found!`
+                });
+            }
+        })
+        .catch(() => {
+            res.status(500).send({
+                message: "Could not delete User with id=" + id
+            });
+        });
+};
+
+
+exports.addCity = (req, res) => {
+    User.findByPk(req.body.userId) //.setCities(req.body.user)
+        .then(
+            user1 => {
+                if (req.body.cityId) {
+                    City.findByPk(req.body.cityId) //.setCities(req.body.user)
+                        .then(
+                            city1 => {
+                                user1.addCities(city1);
+                                res.send(user1);
+                            });
+                }
+            })
+        .catch(err => {
+            res.status(500).send({
+                message: "Error updating City with id=" + id
+            });
+        });
+};
+
+
+
+exports.deleteCity = (req, res) => {
+    User.findByPk(req.body.userId) //.setCities(req.body.user)
+        .then(user1 => {
+            user1.deleteCiteis(req.body.cityId);
+            res.send({ msg: "deleted" });
+        })
+        .catch(err => {
+            res.status(500).send({
+                message: "Error updating City with id=" + id
+            });
+        });
+};
+
