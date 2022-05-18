@@ -124,6 +124,7 @@ var crypto = require('crypto')
 
 exports.updateFormDevice = (req, res) => {
   const id = req.params.id;
+  console.log(req.headers);
   Device.update(req.body, {
     where: { id: id }
   })
@@ -131,7 +132,6 @@ exports.updateFormDevice = (req, res) => {
       if (num == 1) {
         Device.findByPk(id)
           .then(device => {
-            console.log(req.headers);
             if (req.headers.accesstoken == crypto.createHash("sha1").update(device.uid).digest("hex")) {
               res.send(device);
             } else {
