@@ -9,9 +9,7 @@
   router.get("/",[authJwt.verifyToken], city.findAll);
   router.get("/:id",[authJwt.verifyToken],  city.findOne);
   router.get("/:id/devices",[authJwt.verifyToken], city.findOneWithDevice);
-  router.get("/:id/users", [authJwt.verifyToken], city.findUsers);
-  router.post("/adduser",[authJwt.verifyToken,authJwt.isAdmin], city.addUser);
-  router.post("/deleteuser",[authJwt.verifyToken,authJwt.isAdmin], city.deleteUser);
+  router.get("/:id/users", [authJwt.verifyToken], city.findUsers); 
   router.put("/:id",[authJwt.verifyToken,authJwt.isAdmin], city.update);
   router.delete("/:id",[authJwt.verifyToken,authJwt.isAdmin], city.delete); 
 

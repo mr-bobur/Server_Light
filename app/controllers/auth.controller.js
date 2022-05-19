@@ -246,8 +246,12 @@ exports.addCity = (req, res) => {
 exports.deleteCity = (req, res) => {
     User.findByPk(req.body.userId) //.setCities(req.body.user)
         .then(user1 => {
-            user1.deleteCities(req.body.cityId);
-            res.send({ msg: "deleted" });
+            City.findByPk(req.body.cityId) //.setCities(req.body.user)
+            .then(
+                city1 => {
+                    user1.deleteCities(city1);
+                    res.send({ msg: "deleted" });
+                }); 
         })
         .catch(err => {
             res.status(500).send({
