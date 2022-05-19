@@ -110,14 +110,14 @@ exports.findAll = (req, res) => {
             {
                 model: City,
                 through: {
-                    attributes: ['id', 'name']
+                    attributes: ['name']
                 },
                 as: 'cities'
             },
             {
                 model: Role,
                 through: {
-                    attributes: ['id', 'name']
+                    attributes: ['name']
                 },
                 as: 'roles'
             }
