@@ -235,7 +235,7 @@ exports.addCity = (req, res) => {
             })
         .catch(err => {
             res.status(500).send({
-                message: "Error updating City with id=" + id
+                message: "Error updating City with id="
             });
         });
 };
@@ -250,7 +250,7 @@ exports.deleteCity = (req, res) => {
         })
         .catch(err => {
             res.status(500).send({
-                message: "Error updating City with id=" + id
+                message: "Error updating City with id="
             });
         });
 };
