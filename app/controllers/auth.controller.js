@@ -140,7 +140,7 @@ exports.findOne = (req, res) => {
                                 username: data.username,
                                 email: data.email,
                                 roles: authorities,
-                                roles: cities,
+                                citeis: cities,
                             });
                         } else {
                             res.status(200).send({
