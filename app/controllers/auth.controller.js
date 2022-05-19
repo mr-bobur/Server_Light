@@ -105,7 +105,24 @@ exports.findCities = (req, res) => {
 // CRUD
 
 exports.findAll = (req, res) => {
-    User.findAll()
+    User.findAll({
+        include: [
+            {
+                model: City,
+                through: {
+                    attributes: [id, name]
+                },
+                as: 'cities'
+            },
+            {
+                model: Roles,
+                through: {
+                    attributes: [id, name]
+                },
+                as: 'roles'
+            }
+        ]
+    })
         .then(data => {
             res.send(data);
         })
@@ -140,7 +157,7 @@ exports.findOne = (req, res) => {
                                 username: data.username,
                                 email: data.email,
                                 roles: authorities,
-                                cities: cities, 
+                                cities: cities,
                             });
                         } else {
                             res.status(200).send({
@@ -247,11 +264,11 @@ exports.deleteCity = (req, res) => {
     User.findByPk(req.body.userId) //.setCities(req.body.user)
         .then(user1 => {
             City.findByPk(req.body.cityId) //.setCities(req.body.user)
-            .then(
-                city1 => {
-                    user1.removeCities(city1);
-                    res.send({ msg: "deleted" });
-                }); 
+                .then(
+                    city1 => {
+                        user1.removeCities(city1);
+                        res.send({ msg: "deleted" });
+                    });
         })
         .catch(err => {
             res.status(500).send({
