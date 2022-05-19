@@ -20,12 +20,13 @@ const Role = db.role;
 
 console.log(apiWeahter);
 
-db.sequelize.sync(); 
+// db.sequelize.sync(); 
 // drop the table if it already exists
-// db.sequelize.sync({ force: true }).then(() => {
-//   console.log("Drop and re-sync db.");
-//   initial();
-// });
+
+db.sequelize.sync({ force: true }).then(() => {
+  console.log("Drop and re-sync db.");
+  initial();
+});
 
 app.get("/", (req, res) => {
   res.json({ message: "City lightning API service working" });
