@@ -122,7 +122,39 @@ exports.findOne = (req, res) => {
     User.findByPk(id,)
         .then(data => {
             if (data) {
-                res.send(data);
+                var authorities = [];
+                var cities = [];
+                data.getRoles().then(roles => {
+                    for (let i = 0; i < roles.length; i++) {
+                        authorities.push(roles[i].name);
+                    }
+
+                    data.getCitis().then(cities1 => {
+                        if (cities1) {
+                            for (let i = 0; i < cities1.length; i++) {
+                                cities.push(cities1[i].name);
+                            }
+                            res.status(200).send({
+                                id: data.id,
+                                username: data.username,
+                                email: data.email,
+                                roles: authorities,
+                                roles: cities,
+                            });
+                        } else {
+                            res.status(200).send({
+                                id: data.id,
+                                username: data.username,
+                                email: data.email,
+                                roles: authorities
+                            });
+                        }
+
+                    });
+
+
+
+                });
             } else {
                 res.status(404).send({
                     message: `Cannot find User with id=${id}.`
@@ -140,7 +172,7 @@ exports.findOne = (req, res) => {
 // Update a Tutorial by the id in the request
 exports.update = (req, res) => {
     const id = req.params.id;
-
+    req.body.password = bcrypt.hashSync(req.body.password, 8)
     User.update(req.body, {
         where: { id: id }
     })
