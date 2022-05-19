@@ -112,7 +112,7 @@ exports.findAll = (req, res) => {
                 as: 'cities'
             },
             {
-                model: Roles,
+                model: Role,
                 as: 'roles'
             }
         ]
