@@ -109,16 +109,10 @@ exports.findAll = (req, res) => {
         include: [
             {
                 model: City,
-                through: {
-                    attributes: ['name']
-                },
                 as: 'cities'
             },
             {
                 model: Role,
-                through: {
-                    attributes: ['name']
-                },
                 as: 'roles'
             }
         ]
