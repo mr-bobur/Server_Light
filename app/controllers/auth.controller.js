@@ -129,7 +129,7 @@ exports.findOne = (req, res) => {
                         authorities.push(roles[i].name);
                     }
 
-                    data.getCitis().then(cities1 => {
+                    data.getCities().then(cities1 => {
                         if (cities1) {
                             for (let i = 0; i < cities1.length; i++) {
                                 cities.push(cities1[i].name);
