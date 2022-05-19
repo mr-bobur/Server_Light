@@ -2,6 +2,7 @@ const db = require("../models");
 const config = require("../config/auth.config");
 const User = db.user;
 const Role = db.role;
+const City = db.cities;
 
 const Op = db.Sequelize.Op;
 
