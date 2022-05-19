@@ -249,7 +249,7 @@ exports.deleteCity = (req, res) => {
             City.findByPk(req.body.cityId) //.setCities(req.body.user)
             .then(
                 city1 => {
-                    user1.deleteCities(city1);
+                    user1.removeCities(city1);
                     res.send({ msg: "deleted" });
                 }); 
         })
