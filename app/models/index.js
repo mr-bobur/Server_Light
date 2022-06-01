@@ -24,6 +24,7 @@ db.cities    = require("./city.model.js")(sequelize, Sequelize);
 db.devices   = require("./device.model.js")(sequelize, Sequelize);
 db.user      = require("./user.model.js")(sequelize, Sequelize);
 db.role      = require("./role.model.js")(sequelize, Sequelize);
+db.udevice      = require("./unconndev.model.js")(sequelize, Sequelize);
 
 
 

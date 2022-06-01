@@ -1,5 +1,6 @@
 const db = require("../models");
 const City = db.cities;
+const Device = db.devices;
 const Users = db.user;
 const Op = db.Sequelize.Op;
 
@@ -35,6 +36,8 @@ exports.create = (req, res) => {
 
 // Retrieve all city from the database.
 exports.findAll = (req, res) => {
+
+  console.log(req.headers);
   City.findAll()
     .then(data => {
       res.send(data);
@@ -46,6 +49,25 @@ exports.findAll = (req, res) => {
       });
     });
 };
+
+
+// for just users
+exports.findAll2 = (req, res) => {
+  console.log(req.headers);
+  const id = req.params.cityid;
+  Users.findByPk(id)
+    .then(data => {
+      data.getCities().then(cities => {
+        res.send(cities);
+      })
+    })
+    .catch(err => {
+      res.status(500).send({
+        message: "Error retrieving Citiessss with id=" + id
+      });
+    });
+};
+
 
 // Find a single City with an id
 exports.findOne = (req, res) => {
@@ -110,12 +132,23 @@ exports.findUsers = (req, res) => {
 // Update a Tutorial by the id in the request
 exports.update = (req, res) => {
   const id = req.params.id;
-
+  console.log(req.params.id);
   City.update(req.body, {
     where: { id: id }
   })
     .then(num => {
-      if (num == 1) {
+
+      if (num == 1) { 
+
+          Device.update({aontime1: req.body.ontime1, aontime2: req.body.ontime2, aontime3: req.body.ontime3,
+                         aofftime1: req.body.offtime1, aofftime2: req.body.offtime2, aofftime3: req.body.offtime3,},
+            {
+              where: {
+                cityId:  id
+              }
+            }).then(data =>{ 
+                console.log(data); 
+            }); 
         res.send({
           message: "Tutorial was updated successfully."
         });

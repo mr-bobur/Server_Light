@@ -48,7 +48,7 @@ isModerator = (req, res, next) => {
         if (roles[i].name === "moderator") {
           next();
           return;
-        }
+        } 
       }
 
       res.status(403).send({

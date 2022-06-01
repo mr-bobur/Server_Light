@@ -119,37 +119,8 @@ exports.update = (req, res) => {
 };
 
 // Update a Device by the id in the request
-
-
-exports.updateFormDevice = (req, res) => {
-  const id = req.params.id;
-  console.log(req.body);
-  Device.findByPk(id)
-    .then(device => {
-      if (device)
-        if (req.body.uid == device.uid) {
-          Device.update(req.body, {
-            where: { id: id }
-          }).then(() => {
-            res.send(device);
-          }).catch(err => {
-            res.status(500).send({
-              message: "Error updating Devie with id=" + id + err
-            });
-          });
-        } else {
-          res.status(401).send({
-            message: "Unauthorized request"
-          });
-        }
-    }).catch(err => {
-      res.status(500).send({
-        message: "Error updating Devie with id=" + id
-      });
-    });
-
-
-
+exports.updateFormDevice = (req, res) => { 
+   
 };
 
 

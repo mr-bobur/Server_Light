@@ -20,17 +20,7 @@ module.exports = (sequelize, Sequelize) => {
     sunset: {
       type: Sequelize.DATE,
       defaultValue: Sequelize.NOW
-    },
-    
-    ontime: {
-      type: Sequelize.DATE,
-      defaultValue: Sequelize.NOW
-    },
-    offtime: {
-      type: Sequelize.DATE,
-      defaultValue: Sequelize.NOW
-    },
-    
+    }, 
     ontime1: {
       type: Sequelize.DATE,
       defaultValue: Sequelize.NOW
@@ -55,11 +45,29 @@ module.exports = (sequelize, Sequelize) => {
       type: Sequelize.DATE,
       defaultValue: Sequelize.NOW
     },
-    ontimefix: {
+
+    onfix1: {
       type: Sequelize.DATE,
       defaultValue: Sequelize.NOW
     },
-    offtimefix: {
+    offfix1: {
+      type: Sequelize.DATE,
+      defaultValue: Sequelize.NOW
+    },
+
+    onfix2: {
+      type: Sequelize.DATE,
+      defaultValue: Sequelize.NOW
+    },
+    offfix2: {
+      type: Sequelize.DATE,
+      defaultValue: Sequelize.NOW
+    },
+    onfix3: {
+      type: Sequelize.DATE,
+      defaultValue: Sequelize.NOW
+    },
+    offfix3: {
       type: Sequelize.DATE,
       defaultValue: Sequelize.NOW
     },
@@ -71,6 +79,7 @@ module.exports = (sequelize, Sequelize) => {
       type: Sequelize.BOOLEAN,
       defaultValue: false
     },
+
     switch1: {
       type: Sequelize.BOOLEAN,
       defaultValue: false
@@ -82,7 +91,41 @@ module.exports = (sequelize, Sequelize) => {
     switch3: {
       type: Sequelize.BOOLEAN,
       defaultValue: false
-    }
+    },
+
+    rasp1: {
+      type: Sequelize.BOOLEAN,
+      defaultValue: false
+    },
+    rasp2: {
+      type: Sequelize.BOOLEAN,
+      defaultValue: false
+    },
+    rasp3: {
+      type: Sequelize.BOOLEAN,
+      defaultValue: false
+    },
+    data:{
+      type: Sequelize.STRING(5000),
+      defaultValue: null
+    },
+    image:{
+      type: Sequelize.STRING(100),
+      defaultValue: null
+    },
+    qurilma:{
+      type: Sequelize.INTEGER,
+      defaultValue: 0
+    }, 
+    aktiv:{
+      type: Sequelize.INTEGER,
+      defaultValue: 0
+    }, 
+    reserv:{
+      type: Sequelize.INTEGER,
+      defaultValue: 0
+    },
+
   });
   return City;
 };

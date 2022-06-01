@@ -127,9 +127,8 @@ module.exports = (sequelize, Sequelize) => {
       type: Sequelize.INTEGER,
       defaultValue: 80
     },
-    uid:{
-      type: Sequelize.UUID,
-      defaultValue: Sequelize.UUIDV1
+    chipid:{
+      type: Sequelize.BIGINT, 
     }
   });
   return Device;

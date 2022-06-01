@@ -42,10 +42,10 @@ exports.signup = (req, res) => {
 };
 
 exports.signin = (req, res) => {
-    User.findOne({
+    User.findOne( { include: { all: true } },{
         where: {
             username: req.body.username
-        }
+        }, 
     })
         .then(user => {
             if (!user) {
@@ -59,7 +59,7 @@ exports.signin = (req, res) => {
 
             if (!passwordIsValid) {
                 return res.status(401).send({
-                    accessToken: null,
+                    accessToken: null,  
                     message: "Invalid Password!"
                 });
             }
@@ -73,50 +73,28 @@ exports.signin = (req, res) => {
                 for (let i = 0; i < roles.length; i++) {
                     authorities.push("ROLE_" + roles[i].name.toUpperCase());
                 }
+                // console.log(user);
+
                 res.status(200).send({
                     id: user.id,
                     username: user.username,
                     email: user.email,
                     roles: authorities,
-                    accessToken: token
+                    accessToken: token, 
+                    cities: user.cities
                 });
             });
         })
         .catch(err => {
             res.status(500).send({ message: err.message });
         });
-};
-
-exports.findCities = (req, res) => {
-    User.findOne({ where: { username: req.body.username } })
-        .then(data => {
-            data.getCities({ attributes: ['name'] }).then(cities => {
-                res.send(cities);
-            })
-        })
-        .catch(err => {
-            res.status(500).send({
-                message: "Error retrieving Citiessss with id=" + id
-            });
-        });
-};
+}; 
 
 
 // CRUD
 
 exports.findAll = (req, res) => {
-    User.findAll({
-        include: [
-            {
-                model: City,
-                as: 'cities'
-            },
-            {
-                model: Role,
-                as: 'roles'
-            }
-        ]
-    })
+    User.findAll({ include: { all: true } })
         .then(data => {
             res.send(data);
         })
@@ -131,42 +109,10 @@ exports.findAll = (req, res) => {
 // Find a single City with an id
 exports.findOne = (req, res) => {
     const id = req.params.id;
-    User.findByPk(id,)
+    User.findByPk(id, { include: { all: true } })
         .then(data => {
             if (data) {
-                var authorities = [];
-                var cities = [];
-                data.getRoles().then(roles => {
-                    for (let i = 0; i < roles.length; i++) {
-                        authorities.push(roles[i].name);
-                    }
-
-                    data.getCities().then(cities1 => {
-                        if (cities1) {
-                            for (let i = 0; i < cities1.length; i++) {
-                                cities.push(cities1[i].name);
-                            }
-                            res.status(200).send({
-                                id: data.id,
-                                username: data.username,
-                                email: data.email,
-                                roles: authorities,
-                                cities: cities,
-                            });
-                        } else {
-                            res.status(200).send({
-                                id: data.id,
-                                username: data.username,
-                                email: data.email,
-                                roles: authorities
-                            });
-                        }
-
-                    });
-
-
-
-                });
+                res.status(200).send(data);
             } else {
                 res.status(404).send({
                     message: `Cannot find User with id=${id}.`
@@ -181,24 +127,46 @@ exports.findOne = (req, res) => {
 };
 
 
-// Update a Tutorial by the id in the request
+// Update a Users by the id in the request
 exports.update = (req, res) => {
     const id = req.params.id;
-    req.body.password = bcrypt.hashSync(req.body.password, 8)
-    User.update(req.body, {
+    var user = req.body;
+    if (user.password) {
+        user.password = bcrypt.hashSync(req.body.password, 8);
+    }
+
+    User.update(user, {
         where: { id: id }
+    }).then(num => {
+        if (num == 1) {
+            User.findByPk(id).then(
+                user11 => {
+                    if (req.body.roles.length > 0) {
+                        Role.findAll({
+                            where: {
+                                name: {
+                                    [Op.or]: req.body.roles
+                                }
+                            }
+                        }).then(roles => {
+                            user11.setRoles(roles)
+                                .then(() => {
+                                    res.send({ message: "User was registered successfully!" });
+                                });
+                        });
+                    } else {
+                        user11.setRoles([])
+                            .then(() => {
+                                res.send({ message: "User was registered successfully!" });
+                            });
+                    }
+                });
+        } else {
+            res.send({
+                message: `Cannot update users with id=${id}`
+            });
+        }
     })
-        .then(num => {
-            if (num == 1) {
-                res.send({
-                    message: "Users was updated successfully."
-                });
-            } else {
-                res.send({
-                    message: `Cannot update users with id=${id}`
-                });
-            }
-        })
         .catch(() => {
             res.status(500).send({
                 message: "Error updating Users with id=" + id
@@ -233,16 +201,21 @@ exports.delete = (req, res) => {
 
 
 exports.addCity = (req, res) => {
-    User.findByPk(req.body.userId) //.setCities(req.body.user)
+    User.findByPk(req.body.id) //.setCities(req.body.user)
         .then(
             user1 => {
-                if (req.body.cityId) {
-                    City.findByPk(req.body.cityId) //.setCities(req.body.user)
-                        .then(
-                            city1 => {
-                                user1.addCities(city1);
-                                res.send(user1);
-                            });
+                if (req.body.cities) {
+                    City.findAll(
+                        {
+                            where: {
+                                id: req.body.cities
+                            }
+                        }
+                    ).then(
+                        city1 => {
+                            user1.setCities(city1);
+                            res.send({ user1: "salom" });
+                        });
                 }
             })
         .catch(err => {
@@ -267,6 +240,24 @@ exports.deleteCity = (req, res) => {
         .catch(err => {
             res.status(500).send({
                 message: "Error updating City with id="
+            });
+        });
+};
+
+
+
+
+exports.findCities = (req, res) => {
+    const id = req.params.id;
+    User.findByPk(id)
+        .then(data => {
+            data.getCities().then(cities => {
+                res.send(cities);
+            })
+        })
+        .catch(err => {
+            res.status(500).send({
+                message: "Error retrieving Cities with id=" + id
             });
         });
 };
