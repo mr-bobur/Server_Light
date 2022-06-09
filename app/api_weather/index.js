@@ -76,30 +76,18 @@ setInterval(async function () {
 
       cities.forEach(city => {
         try {
-          City.findByPk(city.id, { include: ["devices"] })
-            .then(data => {
-              if (data) {
-                res.send(data.devices);
-                //cities onfix2
-                //device aontime1
-                Device.update({
-                  aontime1:   data.onfix1 ,
-                  aofftime1:   data.offfix1 
+          Device.update({ 
 
-                  // aontime2: data.rasp2 ? data.onfix2 : data.ontime2,
-                  // aofftime2: data.rasp2 ? data.offfix2 : data.offtime2,
+            aontime1: city.rasp1 ? city.onfix1 : city.ontime1,
+            aofftime1: city.rasp1 ? city.offfix1 : city.offtime1,
 
-                  // aontime3: data.rasp3 ? data.onfix3 : data.ontime3,
-                  // aofftime3: data.rasp3 ? data.offfix3 : data.offtime3,
-                
-                }, { where: { citiId: data.id } });
+            aontime2: city.rasp2 ? city.onfix2 : city.ontime2,
+            aofftime2: city.rasp2 ? city.offfix2 : city.offtime2,
 
-              }  
-            })
-            .catch(err => {
-              console.log("Quruilmalar o`zgarmadi");
-            });
+            aontime3: city.rasp3 ? city.onfix3 : city.ontime3,
+            aofftime3: city.rasp3 ? city.offfix3 : city.offtime3,
 
+          }, { where: { citiId: city.id } }); 
         } catch (error) {
           console.log("Shahar topilmadi");
         }
