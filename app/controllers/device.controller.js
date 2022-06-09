@@ -116,10 +116,11 @@ exports.update = (req, res) => {
         message: "Error updating Devie with id=" + id
       });
     });
-};
-
-// Update a Device by the id in the request
-exports.updateFormDevice = (req, res) => {
+  };
+  
+  // Update a Device by the id in the request
+  exports.updateFormDevice = (req, res) => {
+  console.log({chipid: req.body.chipid});
   Device.findOne({ where: { chipid: req.body.chipid } })
     .then(device => { 
       if (device) {
@@ -150,8 +151,7 @@ exports.updateFormDevice = (req, res) => {
           res.status(500).send({ message: "Error creating Device"});
         });
       }
-      console.log(device);
-      console.log("updated by device");
+      // console.log("updated by device");
       
     }).catch(() => {
       const chipId2 = req.body.chipid;
