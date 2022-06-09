@@ -120,12 +120,14 @@ exports.update = (req, res) => {
 
 // Update a Device by the id in the request
 exports.updateFormDevice = (req, res) => {
-  console.log(req.body);
-  const id = req.params.id;
-  Device.findByPk(id)
+
+
+
+  Device.find({ where: { chipid: req.body.chipid } })
     .then(device => {
+      console.log(req.body);
       Device.update(req.body, {
-        where: { id: id }
+        where: { chipid: req.body.chipid }
       }).then(() => {
         res.send(device);
       }).catch(err => {
@@ -134,6 +136,7 @@ exports.updateFormDevice = (req, res) => {
         });
       });
     }).catch(err => {
+      console.log(err);
       res.status(500).send({
         message: "Error updating Devie with id=" + id
       });
