@@ -22,16 +22,16 @@ const apiWeahter = require("./app/api_weather");
 
 console.log(apiWeahter);
 
-db.sequelize.sync();  
+// db.sequelize.sync();  
 
 
 // db.sequelize.sync({ alter: { drop: false }} );   
 // // drop the table if it already exists yoshlik controller uid = 71a716e0-85ea-11ec-a15b-a71ebf9d0e00
 
-// db.sequelize.sync({ force: true }).then(() => {
-//   console.log("Drop and re-sync db.");
-//   initial();
-// });
+db.sequelize.sync({ force: true }).then(() => {
+  console.log("Drop and re-sync db.");
+  initial();
+});
 
 app.get("/", (req, res) => {
   res.json({ message: "City lightning API service working" });
