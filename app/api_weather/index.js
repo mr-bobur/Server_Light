@@ -97,11 +97,11 @@ setInterval(async function () {
               }  
             })
             .catch(err => {
-              console.log("So`rov yuboroshda xatolik bor");
+              console.log("Quruilmalar o`zgarmadi");
             });
 
         } catch (error) {
-          console.log("So`rov yuboroshda xatolik bor");
+          console.log("Shahar topilmadi");
         }
       });
     });
