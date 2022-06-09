@@ -123,7 +123,7 @@ exports.updateFormDevice = (req, res) => {
 
 
 
-  Device.find({ where: { chipid: req.body.chipid } })
+  Device.findOne({ where: { chipid: req.body.chipid } })
     .then(device => {
       console.log(req.body);
       Device.update(req.body, {
@@ -135,13 +135,19 @@ exports.updateFormDevice = (req, res) => {
           message: "Error updating Devie with id=" + id + err
         });
       });
-    }).catch(err => {
-      console.log(err);
-      res.status(500).send({
-        message: "Error updating Devie with id=" + id
+    }).catch(() => {
+      const dev2 = null;
+      const chipId2 = req.body.chipid;
+      dev2.name = chipId2.toString();
+      dev2.chipid = req.body.chipid;
+      dev2.longitude = 45;
+      dev2.latitude = 65;
+      Device.create(dev2).then(() => {
+        res.send(device);
+      }).catch(err => {
+        res.status(500).send({message: "Error updating Devie with id=" + id + err});
       });
     });
-
 };
 
 
