@@ -126,35 +126,40 @@ exports.updateFormDevice = (req, res) => {
   Device.findOne({ where: { chipid: req.body.chipid } })
     .then(device => {
       console.log(req.body);
-      console.log(device);
-      Device.update(req.body, {
-        where: { chipid: req.body.chipid }
-      }).then(() => {
-        res.send(device);
-      }).catch(err => {
-        res.status(500).send({
-          message: "Error updating Devie with id=" + id + err
+
+      if (device) {
+        Device.update(req.body, {
+          where: { chipid: req.body.chipid }
+        }).then(() => {
+          Device.findOne({ where: { chipid: req.body.chipid } })
+            .then(device => {
+              res.send(device);
+            });
+        }).catch(err => {
+          res.status(500).send({
+            message: "Error updating Devie with id=" + id + err
+          });
         });
-      });
+      } else {
+        const dev2 = null;
+        const chipId2 = req.body.chipid;
+        dev2.name = chipId2.toString();
+        dev2.chipid = req.body.chipid;
+        dev2.longitude = 45;
+        dev2.latitude = 65;
+        Device.create(dev2).then(() => {
+          Device.findOne({ where: { chipid: req.body.chipid } })
+            .then(device => {
+              res.send(device);
+            });
+        }).catch(err => {
+          res.status(500).send({ message: "Error updating Devie with id=" + id + err });
+        });
+      }
+      console.log(device);
       console.log("updated by device");
     }).catch(() => {
-      const dev2 = null;
-      const chipId2 = req.body.chipid;
-      dev2.name = chipId2.toString();
-      dev2.chipid = req.body.chipid;
-      dev2.longitude = 45;
-      dev2.latitude = 65;
-      Device.create(dev2).then(() => {
-        Device.findOne({ where: { chipid: req.body.chipid } })
-          .then(device => {
-            res.send(device);
-          });
-
-      }).catch(err => {
-
-        console.log(err);
-        res.status(500).send({ message: "Error updating Devie with id=" + id + err });
-      });
+      res.status(500).send({ message: "Error updating Devie with id=" + id + err });
     });
 };
 
