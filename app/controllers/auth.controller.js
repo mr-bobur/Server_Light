@@ -46,8 +46,7 @@ exports.signin = (req, res) => {
         where: {
             username: req.body.username
         }, 
-    })
-        .then(user => {
+    }).then(user => {
             if (!user) {
                 return res.status(404).send({ message: "User Not found." });
             }

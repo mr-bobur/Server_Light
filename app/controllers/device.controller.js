@@ -119,8 +119,26 @@ exports.update = (req, res) => {
 };
 
 // Update a Device by the id in the request
-exports.updateFormDevice = (req, res) => { 
-   
+exports.updateFormDevice = (req, res) => {
+  console.log(req.body);
+  const id = req.params.id;
+  Device.findByPk(id)
+    .then(device => {
+      Device.update(req.body, {
+        where: { id: id }
+      }).then(() => {
+        res.send(device);
+      }).catch(err => {
+        res.status(500).send({
+          message: "Error updating Devie with id=" + id + err
+        });
+      });
+    }).catch(err => {
+      res.status(500).send({
+        message: "Error updating Devie with id=" + id
+      });
+    });
+
 };
 
 
@@ -138,7 +156,7 @@ exports.delete = (req, res) => {
         });
       } else {
         res.send({
-          message: `Cannot delete Devie with id=${id}. Maybe Device was not found!`
+          message: `Cannot delete Device with id=${id}. Maybe Device was not found!`
         });
       }
     })
