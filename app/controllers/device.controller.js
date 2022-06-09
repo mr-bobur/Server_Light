@@ -155,7 +155,7 @@ exports.updateFormDevice = (req, res) => {
       
     }).catch(() => {
       const chipId2 = req.body.chipid;
-      const dev2 = { name:chipId2.toString(),chipid: req.body.chipid, longitude:45, latitude: 65}
+      const dev2 = { name:req.body.chipid,chipid: req.body.chipid, longitude:45, latitude: 65}
         Device.create(dev2).then(() => {
           Device.findOne({ where: { chipid: req.body.chipid } })
             .then(device => {
