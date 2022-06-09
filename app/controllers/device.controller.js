@@ -116,13 +116,15 @@ exports.update = (req, res) => {
         message: "Error updating Devie with id=" + id
       });
     });
-  };
+};
+
+// Update a Device by the id in the request
+exports.updateFormDevice = (req, res) => {
+
+  console.log({ chipid: req.body.chipid });
   
-  // Update a Device by the id in the request
-  exports.updateFormDevice = (req, res) => {
-  console.log({chipid: req.body.chipid});
   Device.findOne({ where: { chipid: req.body.chipid } })
-    .then(device => { 
+    .then(device => {
       if (device) {
         Device.update(req.body, {
           where: { chipid: req.body.chipid }
@@ -133,7 +135,8 @@ exports.update = (req, res) => {
             });
         }).catch(() => {
           res.status(500).send({
-            message: "Error updating Device"});
+            message: "Error updating Device"
+          });
         });
       } else {
         const dev2 = null;
@@ -148,22 +151,22 @@ exports.update = (req, res) => {
               res.send(device);
             });
         }).catch(() => {
-          res.status(500).send({ message: "Error creating Device"});
+          res.status(500).send({ message: "Error creating Device" });
         });
       }
       // console.log("updated by device");
-      
+
     }).catch(() => {
       const chipId2 = req.body.chipid;
-      const dev2 = { name:req.body.chipid,chipid: req.body.chipid, longitude:45, latitude: 65}
-        Device.create(dev2).then(() => {
-          Device.findOne({ where: { chipid: req.body.chipid } })
-            .then(device => {
-              res.send(device);
-            });
-        }).catch(() => {
-          res.status(500).send({ message: "Error creating Device"});
-        }); 
+      const dev2 = { name: req.body.chipid, chipid: req.body.chipid, longitude: 45, latitude: 65 }
+      Device.create(dev2).then(() => {
+        Device.findOne({ where: { chipid: req.body.chipid } })
+          .then(device => {
+            res.send(device);
+          });
+      }).catch(() => {
+        res.status(500).send({ message: "Error creating Device" });
+      });
     });
 };
 
