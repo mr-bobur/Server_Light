@@ -76,7 +76,7 @@ setInterval(async function () {
 
       cities.forEach(city => {
         try {
-          console.log(city);
+          // console.log(city);
 
           Device.update({ 
 
@@ -89,7 +89,7 @@ setInterval(async function () {
             aontime3: city.rasp3 ? city.onfix3 : city.ontime3,
             aofftime3: city.rasp3 ? city.offfix3 : city.offtime3,
 
-          }, { where: { city: city.id } }); 
+          }, { where: { cityId: city.id } }); 
         } catch (error) {
           console.log("Shahar topilmadi");
         }
