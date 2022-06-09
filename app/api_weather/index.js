@@ -83,14 +83,14 @@ setInterval(async function () {
                 //cities onfix2
                 //device aontime1
                 Device.update({
-                  aontime1: data.rasp1 ? data.onfix1 : data.ontime1,
-                  aofftime1: data.rasp1 ? data.offfix1 : data.offtime1,
+                  aontime1:   data.onfix1 ,
+                  aofftime1:   data.offfix1 
 
-                  aontime2: data.rasp2 ? data.onfix2 : data.ontime2,
-                  aofftime2: data.rasp2 ? data.offfix2 : data.offtime2,
+                  // aontime2: data.rasp2 ? data.onfix2 : data.ontime2,
+                  // aofftime2: data.rasp2 ? data.offfix2 : data.offtime2,
 
-                  aontime3: data.rasp3 ? data.onfix3 : data.ontime3,
-                  aofftime3: data.rasp3 ? data.offfix3 : data.offtime3,
+                  // aontime3: data.rasp3 ? data.onfix3 : data.ontime3,
+                  // aofftime3: data.rasp3 ? data.offfix3 : data.offtime3,
                 
                 }, { where: { citiId: data.id } });
 
