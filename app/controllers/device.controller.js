@@ -120,13 +120,8 @@ exports.update = (req, res) => {
 
 // Update a Device by the id in the request
 exports.updateFormDevice = (req, res) => {
-
-
-
   Device.findOne({ where: { chipid: req.body.chipid } })
-    .then(device => {
-      console.log(req.body);
-
+    .then(device => { 
       if (device) {
         Device.update(req.body, {
           where: { chipid: req.body.chipid }
@@ -135,10 +130,9 @@ exports.updateFormDevice = (req, res) => {
             .then(device => {
               res.send(device);
             });
-        }).catch(err => {
+        }).catch(() => {
           res.status(500).send({
-            message: "Error updating Devie with id=" + id + err
-          });
+            message: "Error updating Device"});
         });
       } else {
         const dev2 = null;
@@ -152,14 +146,24 @@ exports.updateFormDevice = (req, res) => {
             .then(device => {
               res.send(device);
             });
-        }).catch(err => {
-          res.status(500).send({ message: "Error updating Devie with id=" + id + err });
+        }).catch(() => {
+          res.status(500).send({ message: "Error creating Device"});
         });
       }
       console.log(device);
       console.log("updated by device");
+      
     }).catch(() => {
-      res.status(500).send({ message: "Error updating Devie with id=" + id + err });
+      const chipId2 = req.body.chipid;
+      const dev2 = { name:chipId2.toString(),chipid: req.body.chipid, longitude:45, latitude: 65}
+        Device.create(dev2).then(() => {
+          Device.findOne({ where: { chipid: req.body.chipid } })
+            .then(device => {
+              res.send(device);
+            });
+        }).catch(() => {
+          res.status(500).send({ message: "Error creating Device"});
+        }); 
     });
 };
 
