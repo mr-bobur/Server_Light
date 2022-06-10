@@ -90,6 +90,8 @@ setInterval(async function () {
             aofftime3: city.rasp3 ? city.offfix3 : city.offtime3,
 
           }, { where: { cityId: city.id } }); 
+          console.log("Shahar qurilmalari yangilandi");
+
         } catch (error) {
           console.log("Shahar topilmadi");
         }
