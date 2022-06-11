@@ -69,27 +69,53 @@ setInterval(async function () {
 
 
 setInterval(async function () {
-  // console.log("kron tasks");
+  console.log("kron tasks");
   City.findAll()
     .then(data => {
       const cities = data;
+      const date0 = new Date();
+      const date1 = new Date();
+      date1.setHours(0);
+      date1.setMinutes(0);
+      date1.setSeconds(10);
+
+      const date2 =  new Date();
+      date2.setHours(23);
+      date2.setMinutes(59);
+      date2.setSeconds(55);
+
 
       cities.forEach(city => {
         try {
           // console.log(city);
+          if (city.automatic) {
 
-          Device.update({ 
+            Device.update({
+              aontime1: city.switch1 ? date0 : date2,
+              aofftime1: city.switch1 ? date0 : date1,
 
-            aontime1: city.rasp1 ? city.onfix1 : city.ontime1,
-            aofftime1: city.rasp1 ? city.offfix1 : city.offtime1,
+              aontime2: city.switch2 ? date0 : date2,
+              aofftime2: city.switch2 ?date0 : date1,
 
-            aontime2: city.rasp2 ? city.onfix2 : city.ontime2,
-            aofftime2: city.rasp2 ? city.offfix2 : city.offtime2,
+              aontime3: city.switch3 ? date0 : date2,
+              aofftime3: city.switch3 ? date0 : date1,
 
-            aontime3: city.rasp3 ? city.onfix3 : city.ontime3,
-            aofftime3: city.rasp3 ? city.offfix3 : city.offtime3,
+            }, { where: { cityId: city.id } });
 
-          }, { where: { cityId: city.id } }); 
+          } else {
+            Device.update({
+              aontime1: city.rasp1 ? city.onfix1 : city.ontime1,
+              aofftime1: city.rasp1 ? city.offfix1 : city.offtime1,
+
+              aontime2: city.rasp2 ? city.onfix2 : city.ontime2,
+              aofftime2: city.rasp2 ? city.offfix2 : city.offtime2,
+
+              aontime3: city.rasp3 ? city.onfix3 : city.ontime3,
+              aofftime3: city.rasp3 ? city.offfix3 : city.offtime3, 
+            }, { where: { cityId: city.id } });
+          }
+
+
           console.log("Shahar qurilmalari yangilandi");
 
         } catch (error) {
