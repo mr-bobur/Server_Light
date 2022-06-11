@@ -89,6 +89,7 @@ setInterval(async function () {
         try {
           // console.log(city);
           if (city.automatic) {
+            console.log("Shahar qurilmalari qo`lda rejimgs yangilandi");
 
             Device.update({
               aontime1: city.switch1 ? date0 : date2,
@@ -113,10 +114,10 @@ setInterval(async function () {
               aontime3: city.rasp3 ? city.onfix3 : city.ontime3,
               aofftime3: city.rasp3 ? city.offfix3 : city.offtime3, 
             }, { where: { cityId: city.id } });
+            console.log("Shahar avtomatik taymga o`tkazildi");
           }
 
 
-          console.log("Shahar qurilmalari yangilandi");
 
         } catch (error) {
           console.log("Shahar topilmadi");
