@@ -88,7 +88,7 @@ setInterval(async function () {
       cities.forEach(city => {
         try {
           // console.log(city);
-          if (city.automatic) {
+          if (!city.automatic) {
             console.log("Shahar qurilmalari qo`lda rejimgs yangilandi");
 
             Device.update({
