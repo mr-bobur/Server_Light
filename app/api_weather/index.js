@@ -79,48 +79,85 @@ setInterval(async function () {
       date1.setMinutes(0);
       date1.setSeconds(10);
 
-      const date2 =  new Date();
+      const date2 = new Date();
       date2.setHours(23);
       date2.setMinutes(59);
       date2.setSeconds(55);
 
+      var aontime1 = new Date();
+      var aontime2 = new Date();
+      var aontime3 = new Date();
+
+      var aofftime1 = new Date();
+      var aofftime2 = new Date();
+      var aofftime3 = new Date();
 
       cities.forEach(city => {
         try {
-          // console.log(city);
           if (!city.automatic) {
-            console.log("Shahar qurilmalari qo`lda rejimgs yangilandi");
+            if (city.switch1) {
+              aontime1 = date0;
+              aofftime1 = date0;
+            } else { 
+              aontime1 = date2;
+              aofftime1 = date1;
+            }
 
-            Device.update({
-              aontime1: city.switch1 ? date0 : date2,
-              aofftime1: city.switch1 ? date0 : date1,
+            if (city.switch2) {
+              aontime2 = date0;
+              aofftime2 = date0;
+            } else {
+              aontime2 = date2;
+              aofftime2 = date1;
+            }
 
-              aontime2: city.switch2 ? date0 : date2,
-              aofftime2: city.switch2 ?date0 : date1,
+            if (city.switch3) {
+              aontime3 = date0;
+              aofftime3 = date0;
+            } else {
+              aontime3 = date2;
+              aofftime3 = date1;
+            }
 
-              aontime3: city.switch3 ? date0 : date2,
-              aofftime3: city.switch3 ? date0 : date1,
-
-            }, { where: { cityId: city.id } });
 
           } else {
-            Device.update({
-              aontime1: city.rasp1 ? city.onfix1 : city.ontime1,
-              aofftime1: city.rasp1 ? city.offfix1 : city.offtime1,
 
-              aontime2: city.rasp2 ? city.onfix2 : city.ontime2,
-              aofftime2: city.rasp2 ? city.offfix2 : city.offtime2,
+            if (city.rasp1) {
+              aontime1 = city.onfix1;
+              aofftime1 = city.offfix1;
+            } else {
+              aontime1 = city.ontime1;
+              aofftime1 = city.offtime1;
+            }
 
-              aontime3: city.rasp3 ? city.onfix3 : city.ontime3,
-              aofftime3: city.rasp3 ? city.offfix3 : city.offtime3, 
-            }, { where: { cityId: city.id } });
-            console.log("Shahar avtomatik taymga o`tkazildi");
+            if (city.rasp2) {
+              aontime2 = city.onfix2;
+              aofftime2 = city.offfix2;
+            } else {
+              aontime2 = city.ontime2;
+              aofftime2 = city.offtime2;
+            }
+
+            if (city.rasp3) {
+              aontime1 = city.onfix3;
+              aofftime1 = city.offfix3;
+            } else {
+              aontime3 = city.ontime3;
+              aofftime3 = city.offtime3;
+            }
+
           }
 
+          Device.update({
+            aontime1: aontime1, aofftime1: aofftime1,
+            aontime2: aontime2, aofftime2: aofftime2,
+            aontime3: aontime3, aofftime3: aofftime3
+          }, { where: { cityId: city.id } });
 
-
+            
+          console.log("SAQLANDI");
         } catch (error) {
-          console.log("Shahar topilmadi");
+          console.log(error);
         }
       });
     });
