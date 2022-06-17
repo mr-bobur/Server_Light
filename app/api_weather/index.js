@@ -85,12 +85,8 @@ setInterval(async function () {
       var aofftime1 = new Date();
       var aofftime2 = new Date();
       var aofftime3 = new Date();
-      console.log({ 
-        date1,date2, date0,
-        aontime1: aontime1, aofftime1: aofftime1,
-        aontime2: aontime2, aofftime2: aofftime2,
-        aontime3: aontime3, aofftime3: aofftime3
-      });
+
+    
 
       cities.forEach(city => {
         try {
@@ -146,7 +142,14 @@ setInterval(async function () {
               aofftime3 = city.offtime3;
             }
           }
-         
+          
+          console.log({ 
+            date1,date2, date0,
+            aontime1: aontime1, aofftime1: aofftime1,
+            aontime2: aontime2, aofftime2: aofftime2,
+            aontime3: aontime3, aofftime3: aofftime3
+          });
+
           Device.update({
             aontime1: aontime1, aofftime1: aofftime1,
             aontime2: aontime2, aofftime2: aofftime2,
