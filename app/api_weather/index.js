@@ -107,34 +107,44 @@ setInterval(async function () {
             if (!city.switch3) {
               aontime3 = date2;
             }
+            Device.update({
+              aontime1: aontime1, aofftime1: aofftime1,
+              aontime2: aontime2, aofftime2: aofftime2,
+              aontime3: aontime3, aofftime3: aofftime3
+            }, { where: { cityId: city.id } });
 
           } else {
             
-            if (city.rasp1) {
-              aontime1.setTime(city.onfix1.getTime());
-              aofftime1.setTime(city.offfix1.getTime()); 
-            } else {
-              
-              aontime1.setTime(city.ontime1.getTime());
-              aofftime1.setTime(city.offtime1.getTime());  
-            }
 
-            if (city.rasp2) {
-              aontime2.setTime(city.onfix2.getTime());
-              aofftime2.setTime(city.offfix2.getTime()); 
+            if (city.rasp1) {
+              aontime1 = city.onfix1;
+              aofftime1 = city.offfix1;
             } else {
-              
-              aontime2.setTime(city.ontime2.getTime());
-              aofftime2.setTime(city.offtime2.getTime());  
+              aontime1 = city.ontime1;
+              aofftime1 = city.offtime1;
+            } 
+            if (city.rasp2) {
+              aontime2 = city.onfix2;
+              aofftime2 = city.offfix2;
+            } else {
+              aontime2 = city.ontime2;
+              aofftime2 = city.offtime2;
             }
 
             if (city.rasp3) {
-              aontime1 = city.onfix3;
-              aofftime1 = city.offfix3;
+              aontime3 = city.onfix3;
+              aofftime3 = city.offfix3;
             } else {
               aontime3 = city.ontime3;
               aofftime3 = city.offtime3;
             }
+
+            Device.update({
+              aontime1: aontime1, aofftime1: aofftime1,
+              aontime2: aontime2, aofftime2: aofftime2,
+              aontime3: aontime3, aofftime3: aofftime3
+            }, { where: { cityId: city.id } });
+
           }
 
           console.log({ 
@@ -143,13 +153,7 @@ setInterval(async function () {
             aontime3: aontime3, aofftime3: aofftime3
           });
 
-          Device.update({
-            aontime1: aontime1, aofftime1: aofftime1,
-            aontime2: aontime2, aofftime2: aofftime2,
-            aontime3: aontime3, aofftime3: aofftime3
-          }, { where: { cityId: city.id } }).then(()=>{
-            // console.log("SAQLANDI");
-          });
+         
 
         } catch (error) {
           console.log(error);
