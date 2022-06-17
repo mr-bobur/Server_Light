@@ -145,6 +145,7 @@ setInterval(async function () {
             }
           }
           console.log({
+            city: city.name,
             aontime1: aontime1, aofftime1: aofftime1,
             aontime2: aontime2, aofftime2: aofftime2,
             aontime3: aontime3, aofftime3: aofftime3
