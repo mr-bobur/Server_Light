@@ -72,15 +72,11 @@ setInterval(async function () {
     .then(data => {
       const cities = data;
       const date0 = new Date();
+      date0.setUTCHours(00, 01, 01);
       const date1 = new Date();
-      date1.setHours(0);
-      date1.setMinutes(0);
-      date1.setSeconds(10);
-
+      date1.setUTCHours(00, 00, 05);
       const date2 = new Date();
-      date2.setHours(23);
-      date2.setMinutes(59);
-      date2.setSeconds(55);
+      date2.setUTCHours(23, 59, 58);
 
       var aontime1 = new Date();
       var aontime2 = new Date();
@@ -89,6 +85,12 @@ setInterval(async function () {
       var aofftime1 = new Date();
       var aofftime2 = new Date();
       var aofftime3 = new Date();
+      console.log({ 
+        date1,date2, date0,
+        aontime1: aontime1, aofftime1: aofftime1,
+        aontime2: aontime2, aofftime2: aofftime2,
+        aontime3: aontime3, aofftime3: aofftime3
+      });
 
       cities.forEach(city => {
         try {
@@ -144,12 +146,7 @@ setInterval(async function () {
               aofftime3 = city.offtime3;
             }
           }
-          console.log({
-            city: city.name,
-            aontime1: aontime1, aofftime1: aofftime1,
-            aontime2: aontime2, aofftime2: aofftime2,
-            aontime3: aontime3, aofftime3: aofftime3
-          });
+         
           Device.update({
             aontime1: aontime1, aofftime1: aofftime1,
             aontime2: aontime2, aofftime2: aofftime2,
