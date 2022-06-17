@@ -108,9 +108,9 @@ setInterval(async function () {
               aontime3 = date2;
             }
             Device.update({
-              aontime1: aontime1, aofftime1: aofftime1,
-              aontime2: aontime2, aofftime2: aofftime2,
-              aontime3: aontime3, aofftime3: aofftime3
+              aontime1, aofftime1,
+              aontime2, aofftime2,
+              aontime3, aofftime3
             }, { where: { cityId: city.id } });
 
           } else {
@@ -139,10 +139,10 @@ setInterval(async function () {
               aofftime3 = city.offtime3;
             }
 
-            Device.update({
-              aontime1: aontime1, aofftime1: aofftime1,
-              aontime2: aontime2, aofftime2: aofftime2,
-              aontime3: aontime3, aofftime3: aofftime3
+            Device.update({ 
+               aontime1, aofftime1,
+               aontime2, aofftime2,
+               aontime3, aofftime3
             }, { where: { cityId: city.id } });
 
           }
