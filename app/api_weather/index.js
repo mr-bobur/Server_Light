@@ -71,10 +71,8 @@ setInterval(async function () {
   City.findAll()
     .then(data => {
       const cities = data;
-      const date0 = new Date();
-      date0.setUTCHours(00, 01, 01);
       const date1 = new Date();
-      date1.setUTCHours(00, 00, 05);
+      date1.setUTCHours(00, 00, 02);
       const date2 = new Date();
       date2.setUTCHours(23, 59, 58);
 
@@ -91,30 +89,24 @@ setInterval(async function () {
       cities.forEach(city => {
         try {
           if (!city.automatic) {
-            if (city.switch1) {
-              aontime1 = date0;
-              aofftime1 = date0;
-            } else { 
+            aontime1 = date1;
+            aofftime1 = date1;
+
+            aontime2 = date1;
+            aofftime2 = date1;
+            
+            aontime3 = date1;
+            aofftime3 = date1;
+
+            if (!city.switch1) {
               aontime1 = date2;
-              aofftime1 = date1;
             }
-
-            if (city.switch2) {
-              aontime2 = date0;
-              aofftime2 = date0;
-            } else {
+            if (!city.switch2) {
               aontime2 = date2;
-              aofftime2 = date1;
             }
-
-            if (city.switch3) {
-              aontime3 = date0;
-              aofftime3 = date0;
-            } else {
+            if (!city.switch3) {
               aontime3 = date2;
-              aofftime3 = date1;
             }
-
 
           } else {
 
@@ -142,9 +134,8 @@ setInterval(async function () {
               aofftime3 = city.offtime3;
             }
           }
-          
+
           console.log({ 
-            date1,date2, date0,
             aontime1: aontime1, aofftime1: aofftime1,
             aontime2: aontime2, aofftime2: aofftime2,
             aontime3: aontime3, aofftime3: aofftime3
