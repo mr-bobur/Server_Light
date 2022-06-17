@@ -111,27 +111,27 @@ setInterval(async function () {
           } else {
 
             if (city.rasp1) {
-              aontime1 = city.onfix1;
-              aofftime1 = city.offfix1;
+              aontime1 = city.onfix1.getUTCDate();
+              aofftime1 = city.offfix1.getUTCDate();
             } else {
-              aontime1 = city.ontime1;
-              aofftime1 = city.offtime1;
+              aontime1 = city.ontime1.getUTCDate();
+              aofftime1 = city.offtime1.getUTCDate();
             }
 
             if (city.rasp2) {
-              aontime2 = city.onfix2;
-              aofftime2 = city.offfix2;
+              aontime2 = city.onfix2.getUTCDate();
+              aofftime2 = city.offfix2.getUTCDate();
             } else {
-              aontime2 = city.ontime2;
-              aofftime2 = city.offtime2;
+              aontime2 = city.ontime2.getUTCDate();
+              aofftime2 = city.offtime2.getUTCDate();
             }
 
             if (city.rasp3) {
-              aontime1 = city.onfix3;
-              aofftime1 = city.offfix3;
+              aontime1 = city.onfix3.getUTCDate();
+              aofftime1 = city.offfix3.getUTCDate();
             } else {
-              aontime3 = city.ontime3;
-              aofftime3 = city.offtime3;
+              aontime3 = city.ontime3.getUTCDate();
+              aofftime3 = city.offtime3.getUTCDate();
             }
           }
 
