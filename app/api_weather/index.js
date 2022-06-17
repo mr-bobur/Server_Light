@@ -65,11 +65,9 @@ setInterval(async function () {
 }, 60000); // har 1 minutdan update bomasa hammasini stuatuslarini false qiladi!
 
 
-
-
-
+ 
 setInterval(async function () {
-  console.log("kron tasks");
+  // console.log("kron tasks");
   City.findAll()
     .then(data => {
       const cities = data;
@@ -145,17 +143,20 @@ setInterval(async function () {
               aontime3 = city.ontime3;
               aofftime3 = city.offtime3;
             }
-
           }
-
+          console.log({
+            aontime1: aontime1, aofftime1: aofftime1,
+            aontime2: aontime2, aofftime2: aofftime2,
+            aontime3: aontime3, aofftime3: aofftime3
+          });
           Device.update({
             aontime1: aontime1, aofftime1: aofftime1,
             aontime2: aontime2, aofftime2: aofftime2,
             aontime3: aontime3, aofftime3: aofftime3
-          }, { where: { cityId: city.id } });
+          }, { where: { cityId: city.id } }).then(()=>{
+            // console.log("SAQLANDI");
+          });
 
-            
-          console.log("SAQLANDI");
         } catch (error) {
           console.log(error);
         }
