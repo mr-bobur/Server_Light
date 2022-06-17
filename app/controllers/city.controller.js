@@ -138,29 +138,19 @@ exports.update = (req, res) => {
   })
     .then(num => {
 
-      if (num == 1) { 
-
-          Device.update({aontime1: req.body.ontime1, aontime2: req.body.ontime2, aontime3: req.body.ontime3,
-                         aofftime1: req.body.offtime1, aofftime2: req.body.offtime2, aofftime3: req.body.offtime3,},
-            {
-              where: {
-                cityId:  id
-              }
-            }).then(data =>{ 
-                console.log(data); 
-            }); 
+      if (num == 1) {  
         res.send({
-          message: "Tutorial was updated successfully."
+          message: "City was updated successfully."
         });
       } else {
         res.send({
-          message: `Cannot update Tutorial with id=${id}. Maybe Tutorial was not found or req.body is empty!`
+          message: `Cannot update City with id=${id}. Maybe Tutorial was not found or req.body is empty!`
         });
       }
     })
     .catch(err => {
       res.status(500).send({
-        message: "Error updating Tutorial with id=" + id
+        message: "Error updating City with id=" + id
       });
     });
 };
