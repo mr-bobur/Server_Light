@@ -114,16 +114,16 @@ setInterval(async function () {
             }, { where: { cityId: city.id } });
 
           } else {
-            
+
             Device.update({ 
-               aontime1:  city.rasp1 ?  city.onfix1 : city.ontime1 , 
-               aofftime1: city.rasp1 ?  city.offfix1 : city.oftime1 , 
+               aontime1:  city.rasp1 ? city.ontime1 : city.onfix1 , 
+               aofftime1: city.rasp1 ? city.oftime1 : city.offfix1 , 
               
-               aontime2:  city.rasp2 ?  city.onfix2 : city.ontime2 , 
-               aofftime2: city.rasp2 ?  city.offfix2 : city.oftime2 , 
+               aontime2:  city.rasp2 ?  city.ontime2 : city.onfix2, 
+               aofftime2: city.rasp2 ?  city.oftime2 : city.offfix2, 
                
-               aontime3:  city.rasp3 ?  city.onfix3 : city.ontime3 , 
-               aofftime3: city.rasp3 ?  city.offfix1 : city.oftime3 , 
+               aontime3:  city.rasp3 ?  city.ontime3 : city.onfix3, 
+               aofftime3: city.rasp3 ?  city.oftime3 : city.offfix3, 
 
             }, { where: { cityId: city.id } });
 
