@@ -114,26 +114,7 @@ setInterval(async function () {
             }, { where: { cityId: city.id } });
 
           } else {
-            aontime1 = city.ontime1;
-            aofftime1 = city.offtime1;
-            aontime2 = city.ontime2;
-            aofftime2 = city.offtime2;
-            aontime3 = city.ontime3;
-            aofftime3 = city.offtime3;
-
-            if (city.rasp1) {
-              aontime1 = city.onfix1;
-              aofftime1 = city.offfix1;
-            } 
-            if (city.rasp2) {
-              aontime2 = city.onfix2;
-              aofftime2 = city.offfix2;
-            } 
-            if (city.rasp3) {
-              aontime3 = city.onfix3;
-              aofftime3 = city.offfix3;
-            } 
-
+            
             Device.update({ 
                aontime1:  city.rasp1 ?  city.onfix1 : city.ontime1 , 
                aofftime1: city.rasp1 ?  city.offfix1 : city.oftime1 , 
