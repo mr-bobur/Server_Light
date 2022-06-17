@@ -117,13 +117,13 @@ setInterval(async function () {
 
             Device.update({ 
                aontime1:  city.rasp1 ? city.ontime1 : city.onfix1 , 
-               aofftime1: city.rasp1 ? city.oftime1 : city.offfix1 , 
+               aofftime1: city.rasp1 ? city.offtime1 : city.offfix1 , 
               
                aontime2:  city.rasp2 ?  city.ontime2 : city.onfix2, 
-               aofftime2: city.rasp2 ?  city.oftime2 : city.offfix2, 
+               aofftime2: city.rasp2 ?  city.offtime2 : city.offfix2, 
                
                aontime3:  city.rasp3 ?  city.ontime3 : city.onfix3, 
-               aofftime3: city.rasp3 ?  city.oftime3 : city.offfix3, 
+               aofftime3: city.rasp3 ?  city.offtime3 : city.offfix3, 
 
             }, { where: { cityId: city.id } });
 
