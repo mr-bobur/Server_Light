@@ -43,10 +43,7 @@ exports.signup = (req, res) => {
 
 exports.signin = (req, res) => {
     User.findOne(
-        {
-        where: {
-            username: req.body.username
-        }}, { include:  { all: true }}
+        {where: {username: req.body.username}}, { include:  City}
         ).then(user => {
             if (!user) {
                 return res.status(404).send({ message: "User Not found." });
