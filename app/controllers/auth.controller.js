@@ -14,7 +14,7 @@ exports.signup = (req, res) => {
     User.create({
         username: req.body.username,
         email: req.body.email,
-        password: bcrypt.hashSync(req.body.password, 5)
+        password: bcrypt.hashSync(req.body.password, 8)
     }).then(user => {
         if (req.body.roles) {
             Role.findAll({
@@ -52,13 +52,12 @@ exports.signin = (req, res) => {
             }
             const pass = req.body.password;
             const passHash = user.password;
+
             var asd = bcrypt.compareSync( pass, passHash ); 
 
-            console.log(asd);
-            console.log(bcrypt.compareSync(
-                req.body.password, 
-                user.password
-            ));
+            console.log(pass); 
+            console.log(passHash); 
+            
             if (!asd) {
                 return res.status(401).send({
                     accessToken: null,  
