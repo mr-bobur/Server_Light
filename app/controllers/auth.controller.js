@@ -14,7 +14,7 @@ exports.signup = (req, res) => {
     User.create({
         username: req.body.username,
         email: req.body.email,
-        password:  bcrypt.hashSync( req.body.password, 8)
+        password: bcrypt.hashSync(String(req.body.password), 8)
     }).then(user => {
         if (req.body.roles) {
             Role.findAll({
@@ -42,7 +42,7 @@ exports.signup = (req, res) => {
 };
 
 exports.signin = (req, res) => {
-    User.findOne( {
+    User.findOne( { include: { all: true } },{
         where: {
             username: req.body.username
         }, 
@@ -52,8 +52,8 @@ exports.signin = (req, res) => {
             }
 
             var passwordIsValid = bcrypt.compareSync(
-                req.body.password,
-                user.password
+                 user.password, 
+                 req.body.password
             );
 
             if (!passwordIsValid) {
