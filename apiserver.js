@@ -26,7 +26,7 @@ db.sequelize.sync();
 
 
 
-var passwordIsValid = bcrypt.compareSync("12345678", "$2a$08$ibcBYBuFomzbLDTeVgFSz.h4Pl6bMCSahDfkx4neE3b0ADnOU8wtC");
+var passwordIsValid = bcrypt.compareSync("acdb2022", "$2a$08$7TFIDySU04/.byxdGoGNQONN3CwVHddJWbl.x8o0FgJ0CA5lbdBVG");
 
 console.log({hash: passwordIsValid});
 
