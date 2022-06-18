@@ -42,11 +42,11 @@ exports.signup = (req, res) => {
 };
 
 exports.signin = (req, res) => {
-    User.findOne( { include: { all: true } },{
+    User.findOne({
         where: {
             username: req.body.username
-        }, 
-    }).then(user => {
+        }},  { include: { all: true }}
+        ).then(user => {
             if (!user) {
                 return res.status(404).send({ message: "User Not found." });
             }
@@ -57,7 +57,7 @@ exports.signin = (req, res) => {
 
             console.log(pass); 
             console.log(passHash); 
-            
+
             if (!asd) {
                 return res.status(401).send({
                     accessToken: null,  
