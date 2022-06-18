@@ -25,6 +25,11 @@ console.log(apiWeahter);
 db.sequelize.sync();  
 
 
+
+var passwordIsValid = bcrypt.compareSync("12345678", "$2a$08$ibcBYBuFomzbLDTeVgFSz.h4Pl6bMCSahDfkx4neE3b0ADnOU8wtC");
+
+console.log({hash: passwordIsValid});
+
 // db.sequelize.sync({ alter: { drop: false }} );   
 // // drop the table if it already exists yoshlik controller uid = 71a716e0-85ea-11ec-a15b-a71ebf9d0e00
 
