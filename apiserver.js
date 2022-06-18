@@ -47,15 +47,15 @@ require('./app/routes/access.routes')(app);
 require('./app/routes/udevice.router')(app);
 
 
-User.create({
-  username: "boburshah",
-  email: "bmatyoquboff@gmail.com",
-  password: bcrypt.hashSync("acdb2022", 8)
-}).then(user => {
-  Role.findAll().then(roles => {
-    user.setRoles(roles)
-  });
-});
+// User.create({
+//   username: "boburshah",
+//   email: "bmatyoquboff@gmail.com",
+//   password: bcrypt.hashSync("acdb2022", 8)
+// }).then(user => {
+//   Role.findAll().then(roles => {
+//     user.setRoles(roles)
+//   });
+// });
 
 
 const PORT = process.env.PORT || 8089;
