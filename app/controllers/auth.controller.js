@@ -42,7 +42,9 @@ exports.signup = (req, res) => {
 
 exports.signin = (req, res) => {
     User.findOne(
-        { where: { username: req.body.username } }
+        {  where: { username: req.body.username }, 
+           include: {all: true} 
+        }
     ).then(user => {
         if (!user) {
             return res.status(404).send({ message: "User Not found." });
@@ -71,6 +73,15 @@ exports.signin = (req, res) => {
                 authorities.push("ROLE_" + roles[i].name.toUpperCase());
             }
             // console.log(user);
+            // User.findOne({ 
+            //     where: { id: user.id },
+            //     include: [ City ]
+            // }).then(parent => {
+            
+            //     // you should get `parent.Child` as an array of children. 
+            
+            // })
+
                   res.status(200).send({
                     id: user.id,
                     username: user.username,
