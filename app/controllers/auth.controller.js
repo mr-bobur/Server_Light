@@ -3,7 +3,6 @@ const config = require("../config/auth.config");
 const User = db.user;
 const Role = db.role;
 const City = db.cities;
-
 const Op = db.Sequelize.Op;
 
 var jwt = require("jsonwebtoken");
@@ -43,53 +42,51 @@ exports.signup = (req, res) => {
 
 exports.signin = (req, res) => {
     User.findOne(
-        { include:  {all:true}}, {where: {username: req.body.username}}
-        ).then(user => {
-            if (!user) {
-                return res.status(404).send({ message: "User Not found." });
+        { where: { username: req.body.username } }
+    ).then(user => {
+        if (!user) {
+            return res.status(404).send({ message: "User Not found." });
+        }
+        const pass = req.body.password;
+        const passHash = user.password;
+
+        var asd = bcrypt.compareSync(pass, passHash);
+
+
+        if (!asd) {
+            return res.status(401).send({
+                accessToken: null,
+                message: "Invalid Password!"
+            });
+        }
+
+
+        var token = jwt.sign({ id: user.id }, config.secret, {
+            expiresIn: 60000 // 24 hours
+        });
+
+        var authorities = [];
+        user.getRoles().then(roles => {
+            for (let i = 0; i < roles.length; i++) {
+                authorities.push("ROLE_" + roles[i].name.toUpperCase());
             }
-            const pass = req.body.password;
-            const passHash = user.password;
-
-            var asd = bcrypt.compareSync( pass, passHash ); 
-
-            console.log(pass); 
-            console.log(passHash); 
-
-            if (!asd) {
-                return res.status(401).send({
-                    accessToken: null,  
-                    message: "Invalid Password!"
+            // console.log(user);
+                  res.status(200).send({
+                    id: user.id,
+                    username: user.username,
+                    email: user.email,
+                    roles: authorities,
+                    accessToken: token,
+                    cities: user.cities
                 });
-            }
+ 
 
-
-            var token = jwt.sign({ id: user.id }, config.secret, {
-                expiresIn: 60000 // 24 hours
-            });
-
-            var authorities = [];
-            user.getRoles().then(roles => {
-                for (let i = 0; i < roles.length; i++) {
-                    authorities.push("ROLE_" + roles[i].name.toUpperCase());
-                }
-                // console.log(user);
-                
-                    res.status(200).send({
-                        id: user.id,
-                        username: user.username,
-                        email: user.email,
-                        roles: authorities,
-                        accessToken: token, 
-                        cities: user.cities
-                    });
-                
-            });
-        })
+        });
+    })
         .catch(err => {
             res.status(500).send({ message: err.message });
         });
-}; 
+};
 
 
 // CRUD
