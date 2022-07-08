@@ -51,6 +51,16 @@ require('./app/routes/user.routes')(app);
 require('./app/routes/access.routes')(app);
 require('./app/routes/udevice.router')(app);
 
+app.get("/firmware", function (req, res) {
+  
+  // The res.download() talking file path to be downloaded
+  res.download(__dirname + "/file.txt", function (err) {
+    if (err) {
+      console.log(err);
+    }
+  });
+});
+
 
 // User.create({
 //   username: "boburshah",
