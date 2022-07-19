@@ -42,6 +42,18 @@ app.get("/", (req, res) => {
   res.json({ message: "City lightning API service working" });
 });
 
+app.get("/api/ntp", (req, res) => {
+  var date = new Date();
+  year = date.getFullYear();
+  month = date.getMonth();
+  day = date.getDate();
+  hour = date.getHours();
+  minute = date.getMinutes();
+  second = date.getSeconds(); 
+  res.json({ year, month, day, hour, minute, second});
+});
+
+
 // require("./app/routes/turorial.routes")(app);
 require("./app/routes/city.routes")(app);
 require("./app/routes/device.routes")(app);
