@@ -95,17 +95,15 @@ exports.findOneWithCity = (req, res) => {
 exports.update = (req, res) => {
   const id = req.params.id;
   var dev;
-  
-  var body = req.body;
-  body.switch4 = false;
-  Device.findByPk(id).then(data => { dev = data });
+  Device.findByPk(id)
+    .then(data => { dev = data });
 
-  Device.update({body}, {
+  Device.update(req.body, {
     where: { id: id }
   })
     .then(num => {
       if (num == 1) {
-       
+
         res.send(dev);
       } else {
         res.send({
@@ -122,23 +120,18 @@ exports.update = (req, res) => {
 
 // Update a Device by the id in the request
 exports.updateFormDevice = (req, res) => {
-  var updater  = false;
+
   console.log({ chipid: req.body.chipid });
   
   Device.findOne({ where: { chipid: req.body.chipid } })
     .then(device => {
       if (device) {
-        updater = device.switch4;
         Device.update(req.body, {
           where: { chipid: req.body.chipid }
         }).then(() => {
           Device.findOne({ where: { chipid: req.body.chipid } })
             .then(device => {
-              if (updater) {
-                res.send({device: 200});
-              } else {
-                res.send(device);
-              }
+              res.send(device);
             });
         }).catch(() => {
           res.status(500).send({
@@ -163,8 +156,7 @@ exports.updateFormDevice = (req, res) => {
       }
       // console.log("updated by device");
 
-    }).catch((error) => {
-      console.log(error);
+    }).catch(() => {
       const chipId2 = req.body.chipid;
       const dev2 = { name: req.body.chipid, chipid: req.body.chipid, longitude: 45, latitude: 65 }
       Device.create(dev2).then(() => {
