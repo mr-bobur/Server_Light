@@ -103,7 +103,7 @@ exports.update = (req, res) => {
   })
     .then(num => {
       if (num == 1) {
-
+        Device.update({switch4: false}, {where: { id: id }});
         res.send(dev);
       } else {
         res.send({
