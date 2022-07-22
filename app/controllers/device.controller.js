@@ -95,15 +95,15 @@ exports.findOneWithCity = (req, res) => {
 exports.update = (req, res) => {
   const id = req.params.id;
   var dev;
-  Device.findByPk(id)
-    .then(data => { dev = data });
-
+  Device.update({switch4: false}, {where: { id: id }});
+  
+  Device.findByPk(id).then(data => { dev = data });
   Device.update(req.body, {
     where: { id: id }
   })
     .then(num => {
       if (num == 1) {
-        Device.update({switch4: false}, {where: { id: id }});
+       
         res.send(dev);
       } else {
         res.send({
