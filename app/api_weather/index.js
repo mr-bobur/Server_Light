@@ -1,4 +1,3 @@
-const { updateFormDevice } = require("../controllers/device.controller");
 const db = require("../models");
 const City = db.cities;
 const Device = db.devices;
@@ -45,78 +44,6 @@ setInterval(async function () {
 
               });
 
-              City.findAll()
-                .then(data => {
-                  const cities = data;
-                  const date1 = new Date();
-                  date1.setUTCHours(00, 00, 02);
-                  const date2 = new Date();
-                  date2.setUTCHours(23, 59, 58);
-
-                  var aontime1 = new Date();
-                  var aontime2 = new Date();
-                  var aontime3 = new Date();
-
-                  var aofftime1 = new Date();
-                  var aofftime2 = new Date();
-                  var aofftime3 = new Date();
-                  var switch4 = false;
-
-
-
-                  cities.forEach(city => {
-                    try {
-                      if (!city.automatic) {
-                        aontime1 = date1;
-                        aofftime1 = date1;
-
-                        aontime2 = date1;
-                        aofftime2 = date1;
-
-                        aontime3 = date1;
-                        aofftime3 = date1;
-
-                        if (!city.switch1) {
-                          aontime1 = date2;
-                        }
-                        if (!city.switch2) {
-                          aontime2 = date2;
-                        }
-                        if (!city.switch3) {
-                          aontime3 = date2;
-                        }
-                        Device.update({
-                          aontime1, aofftime1,
-                          aontime2, aofftime2,
-                          aontime3, aofftime3,
-                          switch4,
-                        }, { where: { cityId: city.id } });
-
-                      } else {
-
-                        Device.update({
-                          aontime1: city.rasp1 ? city.ontime1 : city.onfix1,
-                          aofftime1: city.rasp1 ? city.offtime1 : city.offfix1,
-
-                          aontime2: city.rasp2 ? city.ontime2 : city.onfix2,
-                          aofftime2: city.rasp2 ? city.offtime2 : city.offfix2,
-
-                          aontime3: city.rasp3 ? city.ontime3 : city.onfix3,
-                          aofftime3: city.rasp3 ? city.offtime3 : city.offfix3,
-                          switch4,
-
-                        }, { where: { cityId: city.id } });
-
-                      }
-
-
-
-                    } catch (error) {
-                      console.log(error);
-                    }
-                  });
-                });
-
 
             } catch (error1) {
             }
@@ -137,10 +64,78 @@ setInterval(async function () {
 
 }, 60000); // har 1 minutdan update bomasa hammasini stuatuslarini false qiladi!
 
+
+ 
 setInterval(async function () {
+  // console.log("kron tasks");
+  City.findAll()
+    .then(data => {
+      const cities = data;
+      const date1 = new Date();
+      date1.setUTCHours(00, 00, 02);
+      const date2 = new Date();
+      date2.setUTCHours(23, 59, 58);
 
-  Device.update({ switch4: false }, { where: {} });
+      var aontime1 = new Date();
+      var aontime2 = new Date();
+      var aontime3 = new Date();
 
-}, 500000);
+      var aofftime1 = new Date();
+      var aofftime2 = new Date();
+      var aofftime3 = new Date();
 
+    
+
+      cities.forEach(city => {
+        try {
+          if (!city.automatic) {
+            aontime1 = date1;
+            aofftime1 = date1;
+
+            aontime2 = date1;
+            aofftime2 = date1;
+            
+            aontime3 = date1;
+            aofftime3 = date1;
+
+            if (!city.switch1) {
+              aontime1 = date2;
+            }
+            if (!city.switch2) {
+              aontime2 = date2;
+            }
+            if (!city.switch3) {
+              aontime3 = date2;
+            }
+            Device.update({
+              aontime1, aofftime1,
+              aontime2, aofftime2,
+              aontime3, aofftime3
+            }, { where: { cityId: city.id } });
+
+          } else {
+
+            Device.update({ 
+               aontime1:  city.rasp1 ? city.ontime1 : city.onfix1 , 
+               aofftime1: city.rasp1 ? city.offtime1 : city.offfix1 , 
+              
+               aontime2:  city.rasp2 ?  city.ontime2 : city.onfix2, 
+               aofftime2: city.rasp2 ?  city.offtime2 : city.offfix2, 
+               
+               aontime3:  city.rasp3 ?  city.ontime3 : city.onfix3, 
+               aofftime3: city.rasp3 ?  city.offtime3 : city.offfix3, 
+
+            }, { where: { cityId: city.id } });
+
+          }
+ 
+        
+
+        } catch (error) {
+          console.log(error);
+        }
+      });
+    });
+
+}, 5000); // 5 sekunddan qurilmalarni avtomatik vaqtini shaharniki bn syncron qiladi
 
