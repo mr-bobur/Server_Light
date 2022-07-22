@@ -133,7 +133,7 @@ exports.updateFormDevice = (req, res) => {
             .then(device => {
               if (device.switch4) {
 
-                res.send({device: 200});
+                res.send({"device" : 200});
 
               } else {
                 res.send(device);
