@@ -156,7 +156,8 @@ exports.updateFormDevice = (req, res) => {
       }
       // console.log("updated by device");
 
-    }).catch(() => {
+    }).catch((error) => {
+      console.log(error);
       const chipId2 = req.body.chipid;
       const dev2 = { name: req.body.chipid, chipid: req.body.chipid, longitude: 45, latitude: 65 }
       Device.create(dev2).then(() => {
