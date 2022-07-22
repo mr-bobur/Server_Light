@@ -131,7 +131,11 @@ exports.updateFormDevice = (req, res) => {
         }).then(() => {
           Device.findOne({ where: { chipid: req.body.chipid } })
             .then(device => {
-              res.send(device);
+              if (device.switch4 === true) {
+                res.send({device: 200});
+              } else {
+                res.send(device);
+              }
             });
         }).catch(() => {
           res.status(500).send({
