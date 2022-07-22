@@ -110,11 +110,7 @@ module.exports = (sequelize, Sequelize) => {
     iswitch3: {
       type: Sequelize.BOOLEAN,
       defaultValue: false
-    },
-    update: {
-      type: Sequelize.BOOLEAN,
-      defaultValue: false
-    },
+    }, 
     meassure:{
       type: Sequelize.STRING(5000),
       defaultValue: null
