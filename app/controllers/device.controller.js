@@ -121,7 +121,7 @@ exports.update = (req, res) => {
 // Update a Device by the id in the request
 exports.updateFormDevice = (req, res) => {
 
-  console.log({ chipid: req.body.chipid });
+  // console.log({ chipid: req.body.chipid });
 
   Device.findOne({ where: { chipid: req.body.chipid } })
     .then(device => {
@@ -137,6 +137,7 @@ exports.updateFormDevice = (req, res) => {
 
               // } else {
                 res.send(device);
+
 
               // }
             });
