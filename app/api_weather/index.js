@@ -83,6 +83,7 @@ setInterval(async function () {
       var aofftime1 = new Date();
       var aofftime2 = new Date();
       var aofftime3 = new Date();
+      var switch4 = false;
 
     
 
@@ -110,7 +111,8 @@ setInterval(async function () {
             Device.update({
               aontime1, aofftime1,
               aontime2, aofftime2,
-              aontime3, aofftime3
+              aontime3, aofftime3,
+              switch4,
             }, { where: { cityId: city.id } });
 
           } else {
@@ -124,6 +126,7 @@ setInterval(async function () {
                
                aontime3:  city.rasp3 ?  city.ontime3 : city.onfix3, 
                aofftime3: city.rasp3 ?  city.offtime3 : city.offfix3, 
+               switch4, 
 
             }, { where: { cityId: city.id } });
 
