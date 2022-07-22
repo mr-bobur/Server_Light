@@ -122,7 +122,7 @@ exports.update = (req, res) => {
 exports.updateFormDevice = (req, res) => {
 
   console.log({ chipid: req.body.chipid });
-  
+
   Device.findOne({ where: { chipid: req.body.chipid } })
     .then(device => {
       if (device) {
@@ -131,7 +131,14 @@ exports.updateFormDevice = (req, res) => {
         }).then(() => {
           Device.findOne({ where: { chipid: req.body.chipid } })
             .then(device => {
-              res.send(device);
+              if (device.switch4) {
+
+                res.send({device: 200});
+
+              } else {
+                res.send(device);
+
+              }
             });
         }).catch(() => {
           res.status(500).send({
@@ -139,6 +146,7 @@ exports.updateFormDevice = (req, res) => {
           });
         });
       } else {
+        // creating a new device on DB
         const dev2 = null;
         const chipId2 = req.body.chipid;
         dev2.name = chipId2.toString();
@@ -169,6 +177,8 @@ exports.updateFormDevice = (req, res) => {
       });
     });
 };
+
+
 
 
 // Delete a Device with the specified id in the request

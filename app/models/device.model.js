@@ -111,6 +111,10 @@ module.exports = (sequelize, Sequelize) => {
       type: Sequelize.BOOLEAN,
       defaultValue: false
     },
+    update: {
+      type: Sequelize.BOOLEAN,
+      defaultValue: false
+    },
     meassure:{
       type: Sequelize.STRING(5000),
       defaultValue: null
