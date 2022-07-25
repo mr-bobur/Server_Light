@@ -122,7 +122,7 @@ exports.update = (req, res) => {
 exports.updateFormDevice = (req, res) => {
 
   console.log({ chipid: req.body.chipid });
-  
+
   Device.findOne({ where: { chipid: req.body.chipid } })
     .then(device => {
       if (device) {
@@ -131,7 +131,18 @@ exports.updateFormDevice = (req, res) => {
         }).then(() => {
           Device.findOne({ where: { chipid: req.body.chipid } })
             .then(device => {
-              res.send(device);
+              if (device.switch4 == false) {
+                res.send(device);
+              } else {
+                const date = new Date();
+                const year = date.getFullYear();
+                const month = date.getMonth();
+                const day = date.getDate();
+                const hour = date.getHours();
+                const minute = date.getMinutes();
+                const second = date.getSeconds();
+                res.json({ year, month, day, hour, minute, second });
+              }
             });
         }).catch(() => {
           res.status(500).send({
