@@ -7,6 +7,7 @@ module.exports = app => {
   router.get("/:id", [authJwt.verifyToken], deivices.findOne);
   router.get("/:id/city", [authJwt.verifyToken], deivices.findOneWithCity);
   router.put("/bytoken", deivices.updateFormDevice);
+  router.put("/dev", deivices.updateFormDevice2);
   router.put("/:id", [authJwt.verifyToken], deivices.update);
   router.delete("/:id", [authJwt.verifyToken, authJwt.isAdmin], deivices.delete);
   app.use('/api/devices', router);

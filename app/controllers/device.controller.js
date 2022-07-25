@@ -131,6 +131,59 @@ exports.updateFormDevice = (req, res) => {
         }).then(() => {
           Device.findOne({ where: { chipid: req.body.chipid } })
             .then(device => {
+                res.send(device);
+            });
+        }).catch(() => {
+          res.status(500).send({
+            message: "Error updating Device"
+          });
+        });
+      } else {
+        const dev2 = null;
+        const chipId2 = req.body.chipid;
+        dev2.name = chipId2.toString();
+        dev2.chipid = req.body.chipid;
+        dev2.longitude = 45;
+        dev2.latitude = 65;
+        Device.create(dev2).then(() => {
+          Device.findOne({ where: { chipid: req.body.chipid } })
+            .then(device => {
+              res.send(device);
+            });
+        }).catch(() => {
+          res.status(500).send({ message: "Error creating Device" });
+        });
+      }
+      // console.log("updated by device");
+
+    }).catch(() => {
+      const chipId2 = req.body.chipid;
+      const dev2 = { name: req.body.chipid, chipid: req.body.chipid, longitude: 45, latitude: 65 }
+      Device.create(dev2).then(() => {
+        Device.findOne({ where: { chipid: req.body.chipid } })
+          .then(device => {
+            res.send(device);
+          });
+      }).catch(() => {
+        res.status(500).send({ message: "Error creating Device" });
+      });
+    });
+};
+
+
+// Update a Device by the id in the request
+exports.updateFormDevice2 = (req, res) => {
+
+  console.log({ chipid: req.body.chipid });
+
+  Device.findOne({ where: { chipid: req.body.chipid } })
+    .then(device => {
+      if (device) {
+        Device.update(req.body, {
+          where: { chipid: req.body.chipid }
+        }).then(() => {
+          Device.findOne({ where: { chipid: req.body.chipid } })
+            .then(device => {
               if (device.switch4 == false) {
                 res.send(device);
               } else {
@@ -180,6 +233,8 @@ exports.updateFormDevice = (req, res) => {
       });
     });
 };
+
+
 
 
 // Delete a Device with the specified id in the request
