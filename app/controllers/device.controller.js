@@ -98,7 +98,7 @@ exports.update = (req, res) => {
   Device.findByPk(id)
     .then(data => { dev = data });
 
-  Device.update(req.body, {
+  Device.update({...req.body, switch4: false}, {
     where: { id: id }
   })
     .then(num => {
