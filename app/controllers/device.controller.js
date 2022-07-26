@@ -177,14 +177,14 @@ exports.updateFormDevice2 = (req, res) => {
   console.log({ chipid: req.body.chipid });
 
   Device.findOne({ where: { chipid: req.body.chipid } })
-    .then(device => {
-      if (device) {
+    .then(device1 => {
+      if (device1) {
         Device.update(req.body, {
           where: { chipid: req.body.chipid }
         }).then(() => {
           Device.findOne({ where: { chipid: req.body.chipid } })
             .then(device => {
-              if (device.switch4 === false) {
+              if (device1.switch4 === false) {
                 res.send(device);
               } else {
                 const date = new Date();
