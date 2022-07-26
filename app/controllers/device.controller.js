@@ -131,7 +131,7 @@ exports.updateFormDevice = (req, res) => {
         }).then(() => {
           Device.findOne({ where: { chipid: req.body.chipid } })
             .then(device => {
-                res.send(device);
+              res.send(device);
             });
         }).catch(() => {
           res.status(500).send({
@@ -188,13 +188,13 @@ exports.updateFormDevice2 = (req, res) => {
                 res.send(device);
               } else {
                 const date = new Date();
-                const year = date.getFullYear();
-                const month = date.getMonth();
-                const day = date.getDate();
-                const hour = date.getHours();
-                const minute = date.getMinutes();
-                const second = date.getSeconds();
-                res.json({ year, month, day, hour, minute, second });
+                const y = date.getFullYear();
+                const m = date.getMonth();
+                const d = date.getDate();
+                const hh = date.getHours();
+                const mm = date.getMinutes();
+                const ss = date.getSeconds();
+                res.json({ y, m, d, hh, mm, ss });
               }
             });
         }).catch(() => {

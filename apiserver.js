@@ -22,13 +22,13 @@ const apiWeahter = require("./app/api_weather");
 
 console.log(apiWeahter);
 
-db.sequelize.sync();  
+db.sequelize.sync();
 
 
 
 var passwordIsValid = bcrypt.compareSync("acdb2022", "$2a$08$7TFIDySU04/.byxdGoGNQONN3CwVHddJWbl.x8o0FgJ0CA5lbdBVG");
 
-console.log({hash: passwordIsValid});
+console.log({ hash: passwordIsValid });
 
 // db.sequelize.sync({ alter: { drop: false }} );   
 // // drop the table if it already exists yoshlik controller uid = 71a716e0-85ea-11ec-a15b-a71ebf9d0e00
@@ -44,13 +44,13 @@ app.get("/", (req, res) => {
 
 app.get("/api/ntp", (req, res) => {
   var date = new Date();
-  year = date.getFullYear();
-  month = date.getMonth();
-  day = date.getDate();
-  hour = date.getHours();
-  minute = date.getMinutes();
-  second = date.getSeconds(); 
-  res.json({ year, month, day, hour, minute, second});
+  const y = date.getFullYear();
+  const m = date.getMonth();
+  const d = date.getDate();
+  const hh = date.getHours();
+  const mm = date.getMinutes();
+  const ss = date.getSeconds();
+  res.json({ y, m, d, hh, mm, ss });
 });
 
 
@@ -64,7 +64,7 @@ require('./app/routes/access.routes')(app);
 require('./app/routes/udevice.router')(app);
 
 app.get("/firmware", function (req, res) {
-  
+
   // The res.download() talking file path to be downloaded
   res.download(__dirname + "/esp32.bin", function (err) {
     if (err) {
