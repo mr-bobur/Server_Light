@@ -43,13 +43,13 @@ setInterval(async function () {
                   console.log([city.name, "Sunrise and sunset Updating XATOLIK"]);
 
               });
-              
+
               Device.findAll()
-              .then(data => {
+                .then(data => {
                   data.forEach(device => {
-                    Device.update({switch4: false} , {where: {id: device.id}});
+                    Device.update({ switch4: false }, { where: { id: device.id } });
                   });
-              });
+                });
 
             } catch (error1) {
             }
@@ -60,7 +60,7 @@ setInterval(async function () {
       });
     });
 
-}, process.env.W_API_UPDATING_TIME || 1600000 );
+}, process.env.W_API_UPDATING_TIME || 1600000);
 
 
 
@@ -71,7 +71,17 @@ setInterval(async function () {
 }, 60000); // har 1 minutdan update bomasa hammasini stuatuslarini false qiladi!
 
 
- 
+setInterval(async function () {
+
+  Device.findAll()
+    .then(data => {
+      data.forEach(device => {
+        Device.update({ switch4: false }, { where: { id: device.id } });
+      });
+    });
+
+}, 600000);
+
 setInterval(async function () {
   // console.log("kron tasks");
   City.findAll()
@@ -90,7 +100,7 @@ setInterval(async function () {
       var aofftime2 = new Date();
       var aofftime3 = new Date();
 
-    
+
 
       cities.forEach(city => {
         try {
@@ -100,7 +110,7 @@ setInterval(async function () {
 
             aontime2 = date1;
             aofftime2 = date1;
-            
+
             aontime3 = date1;
             aofftime3 = date1;
 
@@ -121,21 +131,21 @@ setInterval(async function () {
 
           } else {
 
-            Device.update({ 
-               aontime1:  city.rasp1 ? city.ontime1 : city.onfix1 , 
-               aofftime1: city.rasp1 ? city.offtime1 : city.offfix1 , 
-              
-               aontime2:  city.rasp2 ?  city.ontime2 : city.onfix2, 
-               aofftime2: city.rasp2 ?  city.offtime2 : city.offfix2, 
-               
-               aontime3:  city.rasp3 ?  city.ontime3 : city.onfix3, 
-               aofftime3: city.rasp3 ?  city.offtime3 : city.offfix3, 
+            Device.update({
+              aontime1: city.rasp1 ? city.ontime1 : city.onfix1,
+              aofftime1: city.rasp1 ? city.offtime1 : city.offfix1,
+
+              aontime2: city.rasp2 ? city.ontime2 : city.onfix2,
+              aofftime2: city.rasp2 ? city.offtime2 : city.offfix2,
+
+              aontime3: city.rasp3 ? city.ontime3 : city.onfix3,
+              aofftime3: city.rasp3 ? city.offtime3 : city.offfix3,
 
             }, { where: { cityId: city.id } });
 
           }
- 
-        
+
+
 
         } catch (error) {
           console.log(error);
