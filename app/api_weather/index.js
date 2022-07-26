@@ -43,7 +43,13 @@ setInterval(async function () {
                   console.log([city.name, "Sunrise and sunset Updating XATOLIK"]);
 
               });
-
+              
+              Device.findAll()
+              .then(data => {
+                  data.forEach(device => {
+                    Device.update({switch4: false} , {where: {id: device.id}});
+                  });
+              });
 
             } catch (error1) {
             }
@@ -54,7 +60,7 @@ setInterval(async function () {
       });
     });
 
-}, process.env.W_API_UPDATING_TIME || 1600000);
+}, process.env.W_API_UPDATING_TIME || 1600000 );
 
 
 

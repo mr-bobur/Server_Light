@@ -139,6 +139,13 @@ exports.update = (req, res) => {
     .then(num => {
 
       if (num == 1) {  
+        Device.findAll()
+              .then(data => {
+                  data.forEach(device => {
+                    Device.update({switch4: false} , {where: {id: device.id}});
+                  });
+              });
+              
         res.send({
           message: "City was updated successfully."
         });
