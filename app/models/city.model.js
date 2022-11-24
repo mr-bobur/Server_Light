@@ -17,7 +17,7 @@ module.exports = (sequelize, Sequelize) => {
       type: Sequelize.DATE,
       defaultValue: Sequelize.NOW
     },
-    sunset: {
+    sunset: {   
       type: Sequelize.DATE,
       defaultValue: Sequelize.NOW
     }, 

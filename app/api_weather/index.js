@@ -65,22 +65,20 @@ setInterval(async function () {
 
 
 setInterval(async function () {
-
   Device.update({ status: false }, { where: {} });
-
 }, 60000); // har 1 minutdan update bomasa hammasini stuatuslarini false qiladi!
 
 
 setInterval(async function () {
+  Device.update({ switch4: false }, { where: {} });
+}, 300000);
 
-  Device.findAll()
-    .then(data => {
-      data.forEach(device => {
-        Device.update({ switch4: false }, { where: { id: device.id } });
-      });
-    });
 
-}, 600000);
+setInterval(async function () {
+  const date = new Date();
+  console.log(date);
+}, 10000);
+
 
 setInterval(async function () {
   // console.log("kron tasks");
@@ -153,5 +151,5 @@ setInterval(async function () {
       });
     });
 
-}, 5000); // 5 sekunddan qurilmalarni avtomatik vaqtini shaharniki bn syncron qiladi
+}, 10000); // 5 sekunddan qurilmalarni avtomatik vaqtini shaharniki bn syncron qiladi
 
