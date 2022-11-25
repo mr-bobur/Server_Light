@@ -79,8 +79,8 @@ setInterval(async function () {
   const date = new Date();
   const city = await City.findOne({ where: { name: 'buXORO' } });
   if (city != null) {
-    const offtime = city.offtime1;
-    const ontime = city.ontime1; 
+    const ontime = city.offtime1;
+    const offtime = city.ontime1; 
 
     if (date.getHours() == offtime.getHours() && date.getMinutes() == offtime.getMinutes()) {
       Device.update({ switch1: true, switch2: true, switch3: true, switch4: false, }, { where: { ctemp: 101 } }).then(result => {
