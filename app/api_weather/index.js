@@ -82,14 +82,14 @@ setInterval(async function () {
     const ontime = city.offtime1;
     const offtime = city.ontime1; 
 
-    if (date.getHours() == ontime.getHours() && date.getMinutes() == ontime.getMinutes()) {
+    if (date.getHours()+5 == ontime.getHours() && date.getMinutes() == ontime.getMinutes()) {
       Device.update({ switch1: true, switch2: true, switch3: true, switch4: false, }, { where: { ctemp: 101 } }).then(result => {
         console.log(result);
         console.log("crontask fixing done");
       });
     }
 
-    if (date.getHours() == offtime.getHours() && date.getMinutes() == offtime.getMinutes()) {
+    if (date.getHours()+5 == offtime.getHours() && date.getMinutes() == offtime.getMinutes()) {
       Device.update({ switch1: false, switch2: false, switch3: false, switch4: false, }, { where: { ctemp: 101 } }).then(result => {
         console.log(result);
         console.log("crontask fixing done");
