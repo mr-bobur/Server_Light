@@ -74,22 +74,27 @@ setInterval(async function () {
 
 }, 300000);
 
-
+// corn task for fixing 23.00 off atribute
 setInterval(async function () {
   const date = new Date();
+  const city = await City.findOne({ where: { name: 'buXORO' } });
+  if (city != null) {
+    const offtime = city.offtime1;
+    const ontime = city.ontime1; 
 
-  if(date.getHours() == 16 && date.getMinutes()==3 ){
-    // console.log({h: date.getHours(), m: date.getMinutes(), s: date.getSeconds()});
-    Device.update({ switch1: true,switch2: true,switch3: true,switch4: false, }, { where: { ctemp: 101} }).then(result=>{
-      console.log(result);
-    });
-  }
+    if (date.getHours() == offtime.getHours() && date.getMinutes() == offtime.getMinutes()) {
+      Device.update({ switch1: true, switch2: true, switch3: true, switch4: false, }, { where: { ctemp: 101 } }).then(result => {
+        console.log(result);
+        console.log("crontask fixing done");
+      });
+    }
 
-  if(date.getHours() == 16 && date.getMinutes()==8 ){
-    console.log({h: date.getHours(), m: date.getMinutes(), s: date.getSeconds()});
-    Device.update({ switch1: false,switch2: false,switch3: false,switch4: false, }, { where: { ctemp: 101}}).then(result=>{
-      console.log(result);
-    });
+    if (date.getHours() == ontime.getHours() && date.getMinutes() == ontime.getMinutes()) {
+      Device.update({ switch1: false, switch2: false, switch3: false, switch4: false, }, { where: { ctemp: 101 } }).then(result => {
+        console.log(result);
+        console.log("crontask fixing done");
+      });
+    }
   }
 
 }, 20000);
