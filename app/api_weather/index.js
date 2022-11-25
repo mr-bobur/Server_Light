@@ -71,23 +71,28 @@ setInterval(async function () {
 
 setInterval(async function () {
   Device.update({ switch4: false }, { where: {} });
+
 }, 300000);
 
 
 setInterval(async function () {
   const date = new Date();
 
-  if(date.getHours() == 12 && date.getMinutes()==26 ){
-    console.log({h: date.getHours(), m: date.getMinutes(), s: date.getSeconds()});
-    Device.update({ switch1: true,switch2: true,switch3: true,switch4: false, }, { where: { name: "Urganch 4"} });
+  if(date.getHours() == 15 && date.getMinutes()==52 ){
+    // console.log({h: date.getHours(), m: date.getMinutes(), s: date.getSeconds()});
+    Device.update({ switch1: true,switch2: true,switch3: true,switch4: false, }, { where: { ctemp: 101} }).then(result=>{
+      log(result);
+    });
   }
 
-  if(date.getHours() == 12 && date.getMinutes()==28 ){
+  if(date.getHours() == 15 && date.getMinutes()==55 ){
     console.log({h: date.getHours(), m: date.getMinutes(), s: date.getSeconds()});
-    Device.update({ switch1: false,switch2: false,switch3: false,switch4: false, }, { where: { name: "Urganch 4"}});
+    Device.update({ switch1: false,switch2: false,switch3: false,switch4: false, }, { where: { name: 101}}).then(result=>{
+      log(result);
+    });
   }
 
-}, 10000);
+}, 20000);
 
 
 setInterval(async function () {
