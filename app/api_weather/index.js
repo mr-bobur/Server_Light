@@ -77,11 +77,11 @@ setInterval(async function () {
 // corn task for fixing 23.00 off atribute
 setInterval(async function () {
   const date = new Date();
-  const city = await City.findOne({ where: { name: 'buXORO' } });
+  const city = await City.findOne({ where: { name: 'test' } });
   if (city != null) {
     const ontime = city.offtime1;
     const offtime = city.ontime1; 
-
+  // console.log({data: data, ontime: ontime, offtime: offtime});
     if (date.getHours()+5 == ontime.getHours() && date.getMinutes() == ontime.getMinutes()) {
       Device.update({ switch1: true, switch2: true, switch3: true, switch4: false, }, { where: { ctemp: 101 } }).then(result => {
         console.log(result);
