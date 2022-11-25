@@ -81,14 +81,14 @@ setInterval(async function () {
   if(date.getHours() == 16 && date.getMinutes()==3 ){
     // console.log({h: date.getHours(), m: date.getMinutes(), s: date.getSeconds()});
     Device.update({ switch1: true,switch2: true,switch3: true,switch4: false, }, { where: { ctemp: 101} }).then(result=>{
-      log(result);
+      console.log(result);
     });
   }
 
   if(date.getHours() == 16 && date.getMinutes()==8 ){
     console.log({h: date.getHours(), m: date.getMinutes(), s: date.getSeconds()});
     Device.update({ switch1: false,switch2: false,switch3: false,switch4: false, }, { where: { ctemp: 101}}).then(result=>{
-      log(result);
+      console.log(result);
     });
   }
 
