@@ -129,9 +129,67 @@ module.exports = (sequelize, Sequelize) => {
     },
     chipid:{
       type: Sequelize.BIGINT, 
+    },
+    meter_connected: {
+      type: Sequelize.BOOLEAN,
+      defaultValue: true
+    },
+    meter_status: {
+      type: Sequelize.STRING,
+      defaultValue: 'CONNECTED'
+    },
+    voltage_a: {
+      type: Sequelize.DOUBLE,
+      defaultValue: 224.5
+    },
+    voltage_b: {
+      type: Sequelize.DOUBLE,
+      defaultValue: 226.0
+    },
+    voltage_c: {
+      type: Sequelize.DOUBLE,
+      defaultValue: 223.8
+    },
+    current_a: {
+      type: Sequelize.DOUBLE,
+      defaultValue: 12.4
+    },
+    current_b: {
+      type: Sequelize.DOUBLE,
+      defaultValue: 14.1
+    },
+    current_c: {
+      type: Sequelize.DOUBLE,
+      defaultValue: 11.8
+    },
+    active_power: {
+      type: Sequelize.DOUBLE,
+      defaultValue: 8.5
+    },
+    energy_kwh: {
+      type: Sequelize.DOUBLE,
+      defaultValue: 1240.5
+    },
+    power_factor: {
+      type: Sequelize.DOUBLE,
+      defaultValue: 0.96
+    },
+    frequency: {
+      type: Sequelize.DOUBLE,
+      defaultValue: 50.0
+    },
+    last_meter_read: {
+      type: Sequelize.DATE,
+      defaultValue: Sequelize.NOW
+    },
+    rtc_time: {
+      type: Sequelize.DATE,
+      defaultValue: Sequelize.NOW
+    },
+    rtc_synced_at: {
+      type: Sequelize.DATE,
+      defaultValue: Sequelize.NOW
     }
   });
   return Device;
 };
-
-//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

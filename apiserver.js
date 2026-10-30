@@ -22,7 +22,7 @@ const apiWeahter = require("./app/api_weather");
 
 console.log(apiWeahter);
 
-db.sequelize.sync();
+db.sequelize.sync({ alter: true });
 
 
 
@@ -42,15 +42,24 @@ app.get("/", (req, res) => {
   res.json({ message: "City lightning API service working" });
 });
 
+const timeService = require("./app/services/time.service");
+
 app.get("/api/ntp", (req, res) => {
-  var date = new Date();
-  const y = date.getFullYear();
-  const m = date.getMonth();
-  const d = date.getDate();
-  const hh = date.getHours();
-  const mm = date.getMinutes();
-  const ss = date.getSeconds();
-  res.json({ y, m, d, hh, mm, ss });
+  const t = timeService.getEffectiveTime();
+  res.json({
+    y: t.y,
+    m: t.m,
+    month: t.month,
+    d: t.d,
+    hh: t.hh,
+    mm: t.mm,
+    ss: t.ss,
+    iso: t.iso,
+    timestamp: t.timestamp,
+    formatted: t.formatted,
+    mode: t.mode,
+    is_manual: t.isManual
+  });
 });
 
 
@@ -62,6 +71,8 @@ require('./app/routes/auth.routes')(app);
 require('./app/routes/user.routes')(app);
 require('./app/routes/access.routes')(app);
 require('./app/routes/udevice.router')(app);
+require('./app/routes/notification.routes')(app);
+require('./app/routes/system.routes')(app);
 
 app.get("/firmware", function (req, res) {
 

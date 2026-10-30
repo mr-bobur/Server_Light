@@ -1,9 +1,12 @@
-module.exports = {
-  HOST: "localhost",
-  USER: "root",
-  PASSWORD: "acdb2022" ,
+try {
+  require('dotenv').config();
+} catch (e) {}
 
-  DB: "testdb",
+module.exports = {
+  HOST: process.env.DB_HOST || "localhost",
+  USER: process.env.DB_USER || "root",
+  PASSWORD: process.env.DB_PASSWORD || "acdb2022",
+  DB: process.env.DB_NAME || "testdb",
   dialect: "mysql",
   pool: {
     max: 5,
