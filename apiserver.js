@@ -73,6 +73,7 @@ require('./app/routes/access.routes')(app);
 require('./app/routes/udevice.router')(app);
 require('./app/routes/notification.routes')(app);
 require('./app/routes/system.routes')(app);
+require('./app/routes/event_schedule.routes')(app);
 
 app.get("/firmware", function (req, res) {
 

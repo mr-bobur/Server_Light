@@ -30,6 +30,7 @@ db.device_history = require("./device_history.model.js")(sequelize, Sequelize);
 db.city_history = require("./city_history.model.js")(sequelize, Sequelize);
 db.device_schedules = require("./device_schedule.model.js")(sequelize, Sequelize);
 db.system_time = require("./system_time.model.js")(sequelize, Sequelize);
+db.event_schedules = require("./event_schedule.model.js")(sequelize, Sequelize);
 
 db.cities.hasMany(db.devices, { as: "devices" });
 
